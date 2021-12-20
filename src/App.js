@@ -8,8 +8,10 @@ import {
 } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store-toolkit/store";
-import ListService from "./components/ListService/ListService";
-import EditService from "./components/EditService/EditService";
+import Index from "./pages/Index/Index";
+import About from "./pages/About/About";
+import Contacts from "./pages/Contacts/Contacts";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -17,9 +19,12 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/services/:id" element={<EditService />} />
-            <Route path="/services" element={<ListService />} />
-            <Route path="/" element={<Navigate replace to="/services" />} />
+            {/* <Route path="/services/:id" element={<EditService />} /> */}
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/" element={<Index />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate replace to="/404" />} />
           </Routes>
         </div>
       </Router>
