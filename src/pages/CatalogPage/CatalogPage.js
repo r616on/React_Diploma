@@ -1,15 +1,16 @@
 import React from "react";
+import Cart from "../../components/Cart/Cart";
 import Catalog from "../../components/Catalog/Catalog";
-import TopSales from "../../components/TopSales/TopSales";
+import Order from "../../components/Order/Order";
 import IndexTemplate from "../../templates/IndexTemplate/IndexTemplate";
+import "./desktop.scss";
 
-function Index() {
+function CatalogPage() {
   return (
     <IndexTemplate>
-      <TopSales />
       <Catalog />
     </IndexTemplate>
   );
 }
 
-export default Index;
+export default CatalogPage;

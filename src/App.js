@@ -12,6 +12,8 @@ import Index from "./pages/Index/Index";
 import About from "./pages/About/About";
 import Contacts from "./pages/Contacts/Contacts";
 import NotFound from "./pages/NotFound/NotFound";
+import CartPage from "./pages/CartPage/CartPage";
+import CatalogPage from "./pages/CatalogPage/CatalogPage";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <div className="App">
           <Routes>
             {/* <Route path="/services/:id" element={<EditService />} /> */}
+            <Route path="/catalog" element={<CatalogPage />} />
+            <Route path="/cart" element={<CartPage />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/about" element={<About />} />
             <Route path="/" element={<Index />} />

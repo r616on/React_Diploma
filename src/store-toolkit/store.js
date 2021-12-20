@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import listSlice from "./SliceList";
-import formSlice from "./SliceForm";
+import TopSales from "./TopSalesSlice";
+import CatalogSlice from "./CatalogSlice";
 
 export default configureStore({
   reducer: {
-    listSlice,
-    formSlice,
+    TopSales,
+    CatalogSlice,
   },
 });
