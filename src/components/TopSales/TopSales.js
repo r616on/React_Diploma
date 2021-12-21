@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchItemsTopSales } from "../../store-toolkit/SliceActionCreators";
+import { fetchItemsTopSales } from "../../store-toolkit/TopSalesThunk";
 import "./desktop.scss";
 import Card from "../Card/Card";
 
 function TopSales() {
   const { items, loading, error } = useSelector((store) => store.TopSales);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetchItemsTopSales());
   }, []);
-  return (
+  return items.length > 0 ? (
     <section className="top-sales">
       <h2 className="text-center">Хиты продаж!</h2>
       <div className="row">
@@ -30,7 +29,7 @@ function TopSales() {
         })}
       </div>
     </section>
-  );
+  ) : null;
 }
 
 export default TopSales;

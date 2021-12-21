@@ -3,14 +3,15 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import "./desktop.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  fetchItemsCatalogCategory,
-  fetchItemsCatalog,
-  OffsetCatalogFetch,
-} from "../../store-toolkit/SliceActionCreators";
-import { actionsCatalogSlice } from "../../store-toolkit/CatalogSlice";
+  fetchCategoryItems,
+  filterCategory,
+  offsetCatalogFetch,
+} from "../../store-toolkit/CatalogThunk";
+import { catalogActions } from "../../store-toolkit/CatalogSlice";
 import Card from "../Card/Card";
+import Search from "../Search/Search";
 
-function Catalog() {
+function Catalog({ index }) {
   const {
     items,
     category,
@@ -22,28 +23,26 @@ function Catalog() {
   } = useSelector((store) => store.CatalogSlice);
   const dispatch = useDispatch();
   const filterCatalogHandle = (id) => {
-    dispatch(actionsCatalogSlice.setActivCategory(id));
-    dispatch(fetchItemsCatalog());
+    dispatch(catalogActions.setActivCategory(id));
+    dispatch(filterCategory());
   };
 
   useEffect(() => {
-    dispatch(fetchItemsCatalogCategory());
-    dispatch(fetchItemsCatalog(activCategory));
-  }, []);
+    dispatch(fetchCategoryItems());
+    dispatch(filterCategory(activCategory));
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(actionsCatalogSlice.initOffset());
+    dispatch(catalogActions.initOffset());
     if (!offsetActive) {
-      dispatch(actionsCatalogSlice.setOffsetActive(true));
+      dispatch(catalogActions.setOffsetActive(true));
     }
   }, [activCategory]);
 
   return (
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
-      <form className="catalog-search-form form-inline">
-        <input className="form-control" placeholder="Поиск" />
-      </form>
+      {!index && <Search />}
       <ul className="catalog-categories nav justify-content-center">
         <li className="nav-item">
           <div
@@ -90,7 +89,7 @@ function Catalog() {
         {offsetActive && (
           <button
             onClick={() => {
-              dispatch(OffsetCatalogFetch(offset));
+              dispatch(offsetCatalogFetch(offset));
             }}
             className="btn btn-outline-primary"
           >

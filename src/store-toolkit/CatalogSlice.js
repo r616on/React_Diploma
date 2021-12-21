@@ -83,5 +83,5 @@ const CatalogSlice = createSlice({
   },
 });
 
-export const actionsCatalogSlice = CatalogSlice.actions;
+export const catalogActions = CatalogSlice.actions;
 export default CatalogSlice.reducer;

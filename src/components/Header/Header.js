@@ -1,9 +1,14 @@
 import React from "react";
 import { Link, useParams, useNavigate, NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 import logo from "../../img/header-logo.png";
+import Search from "../Search/Search";
+import { searchActions } from "../../store-toolkit/SearchSlice";
 
 function Header() {
+  const { searchHeader } = useSelector((store) => store.search);
+  const dispatch = useDispatch();
   return (
     <header className="container">
       <div className="row">
@@ -38,7 +43,9 @@ function Header() {
               <div>
                 <div className="header-controls-pics">
                   <div
-                    data-id="search-expander"
+                    onClick={() =>
+                      dispatch(searchActions.setSearchHeader(!searchHeader))
+                    }
                     className="header-controls-pic header-controls-search"
                   ></div>
 
@@ -50,12 +57,7 @@ function Header() {
                     <div className="header-controls-cart-menu"></div>
                   </NavLink>
                 </div>
-                <form
-                  data-id="search-form"
-                  className="header-controls-search-form form-inline invisible"
-                >
-                  <input className="form-control" placeholder="Поиск" />
-                </form>
+                {searchHeader && <Search header />}
               </div>
             </div>
           </nav>

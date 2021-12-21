@@ -7,7 +7,7 @@ function Index() {
   return (
     <IndexTemplate>
       <TopSales />
-      <Catalog />
+      <Catalog index />
     </IndexTemplate>
   );
 }

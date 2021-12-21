@@ -9,26 +9,26 @@ const url = `${adres}:${port}`;
 
 const initialState = {
   items: [
-    {
-      id: 65,
-      category: 15,
-      title: "Босоножки 'Keira'",
-      price: 7600,
-      images: [
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira.jpg",
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira_2.jpg",
-      ],
-    },
-    {
-      id: 66,
-      category: 13,
-      title: "Босоножки 'Myer' с завязкой на щиколотке",
-      price: 34000,
-      images: [
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer.jpg",
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer_2.jpg",
-      ],
-    },
+    // {
+    //   id: 65,
+    //   category: 15,
+    //   title: "Босоножки 'Keira'",
+    //   price: 7600,
+    //   images: [
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira.jpg",
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira_2.jpg",
+    //   ],
+    // },
+    // {
+    //   id: 66,
+    //   category: 13,
+    //   title: "Босоножки 'Myer' с завязкой на щиколотке",
+    //   price: 34000,
+    //   images: [
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer.jpg",
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer_2.jpg",
+    //   ],
+    // },
     // {
     //   id: 73,
     //   category: 15,
@@ -65,5 +65,5 @@ const TopSales = createSlice({
   },
 });
 
-export const { setItems, setError, setLoading } = TopSales.actions;
+export const topSalesActons = TopSales.actions;
 export default TopSales.reducer;

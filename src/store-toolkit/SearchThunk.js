@@ -1,0 +1,35 @@
+import { catalogActions } from "./CatalogSlice";
+import { searchActions } from "./SearchSlice";
+
+export const searchCatalogFetch =
+  (header, navigate) => (dispatch, getState) => {
+    const { url, activCategory } = getState().CatalogSlice;
+    if (header) {
+      dispatch(searchActions.setSearchHeader(false));
+      navigate("/catalog");
+    }
+
+    const name = getState().search.form.name;
+    const params = new URLSearchParams({ q: name });
+    fetch(
+      activCategory === "all"
+        ? `${url}/api/items?${params}`
+        : `${url}/api/items?categoryId=${activCategory}&${params}`
+    )
+      .then((response) => {
+        if (response.status > 300) {
+          console.log("error" + response.status);
+        }
+        return response.json();
+      })
+      .then((items) => {
+        // dispatch(searchActions.initForm());
+        dispatch(catalogActions.setItems(items));
+
+        // dispatch(setLoading("idel"));
+      })
+      .catch(() => {
+        // dispatch(setLoading("idel"));
+        // dispatch(setError(true));
+      });
+  };
