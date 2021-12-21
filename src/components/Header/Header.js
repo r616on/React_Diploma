@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, NavLink } from "react-router-dom";
 import "./desktop.scss";
 import logo from "../../img/header-logo.png";
 
@@ -15,24 +15,24 @@ function Header() {
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
-                  <Link to={"/"} className="nav-link">
+                  <NavLink to={"/"} className="nav-link">
                     Главная
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/catalog"} className="nav-link">
+                  <NavLink to={"/catalog"} className="nav-link">
                     Каталог
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/about"} className="nav-link">
+                  <NavLink to={"/about"} className="nav-link">
                     О магазине
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link to={"/contacts"} className="nav-link">
+                  <NavLink to={"/contacts"} className="nav-link">
                     Контакты
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
               <div>
@@ -42,10 +42,13 @@ function Header() {
                     className="header-controls-pic header-controls-search"
                   ></div>
 
-                  <div className="header-controls-pic header-controls-cart">
+                  <NavLink
+                    to={"/cart"}
+                    className="header-controls-pic header-controls-cart"
+                  >
                     <div className="header-controls-cart-full">1</div>
                     <div className="header-controls-cart-menu"></div>
-                  </div>
+                  </NavLink>
                 </div>
                 <form
                   data-id="search-form"
