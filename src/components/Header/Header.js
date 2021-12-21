@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams, useNavigate, NavLink } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import "./desktop.scss";
 import logo from "../../img/header-logo.png";
 
@@ -14,25 +14,25 @@ function Header() {
             </a>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                  <NavLink to={"/"} className="nav-link">
+                <li className="nav-item active">
+                  <Link to={"/"} className="nav-link">
                     Главная
-                  </NavLink>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={"/catalog"} className="nav-link">
+                  <Link to={"/catalog"} className="nav-link">
                     Каталог
-                  </NavLink>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={"/about"} className="nav-link">
+                  <Link to={"/about"} className="nav-link">
                     О магазине
-                  </NavLink>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <NavLink to={"/contacts"} className="nav-link">
+                  <Link to={"/contacts"} className="nav-link">
                     Контакты
-                  </NavLink>
+                  </Link>
                 </li>
               </ul>
               <div>
@@ -42,13 +42,10 @@ function Header() {
                     className="header-controls-pic header-controls-search"
                   ></div>
 
-                  <Link
-                    to={"/cart"}
-                    className="header-controls-pic header-controls-cart"
-                  >
+                  <div className="header-controls-pic header-controls-cart">
                     <div className="header-controls-cart-full">1</div>
                     <div className="header-controls-cart-menu"></div>
-                  </Link>
+                  </div>
                 </div>
                 <form
                   data-id="search-form"
