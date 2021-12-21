@@ -2,3 +2,18 @@
 .top-sales {
   min-height: 300px;
 }
+.card__img__row {
+  height: 348px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  overflow: hidden;
+
+  .img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}

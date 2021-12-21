@@ -42,6 +42,64 @@ export const fetchItemsCatalogCategory = () => (dispatch, getState) => {
       // dispatch(setError(true));
     });
 };
+export const fetchItemsCatalog = () => (dispatch, getState) => {
+  const { url, activCategory } = getState().CatalogSlice;
+  // dispatch(setError(false));
+  // dispatch(setLoading("loading"));
+
+  fetch(
+    activCategory === "all"
+      ? `${url}/api/items`
+      : `${url}/api/items?categoryId=${activCategory}`
+  )
+    .then((response) => {
+      if (response.status > 300) {
+        console.log("error" + response.status);
+      }
+      return response.json();
+    })
+    .then((items) => {
+      dispatch(actionsCatalogSlice.setItems(items));
+      // dispatch(setLoading("idel"));
+    })
+    .catch(() => {
+      // dispatch(setLoading("idel"));
+      // dispatch(setError(true));
+    });
+};
+
+export const OffsetCatalogFetch = () => (dispatch, getState) => {
+  const { url, activCategory, offset } = getState().CatalogSlice;
+  // dispatch(setError(false));
+  // dispatch(setLoading("loading"));
+
+  fetch(
+    activCategory === "all"
+      ? `${url}/api/items?&offset=${offset}`
+      : `${url}/api/items?categoryId=${activCategory}&offset=${offset}`
+  )
+    .then((response) => {
+      if (response.status > 300) {
+        console.log("error" + response.status);
+      }
+      return response.json();
+    })
+    .then((items) => {
+      if (items.length < 6) {
+        dispatch(actionsCatalogSlice.setOffsetActive(false));
+      }
+      if (items.length > 0) {
+        dispatch(actionsCatalogSlice.setItems(items));
+        dispatch(actionsCatalogSlice.nextOffset());
+      }
+
+      // dispatch(setLoading("idel"));
+    })
+    .catch(() => {
+      // dispatch(setLoading("idel"));
+      // dispatch(setError(true));
+    });
+};
 
 // export const fetchDelItemsThunked = (id) => (dispatch, getState) => {
 //   const url = getState().listSlice.url;

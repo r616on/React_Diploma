@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//const adres = "https://react-diploma--backend.herokuapp.com";
-const adres = "http://localhost";
-//  http://localhost:7070/api/top-sales
+const adres = "https://react-diploma--backend.herokuapp.com";
+//const adres = "http://localhost";
+// http://localhost:7070/api/top-sales
 
-const port = "7070";
+const port = "";
 const url = `${adres}:${port}`;
 
 const initialState = {
@@ -43,6 +43,9 @@ const initialState = {
     { id: 12, title: "Мужская обувь" },
     { id: 13, title: "Женская обувь" },
   ],
+  activCategory: "all",
+  offset: 6,
+  offsetActive: true,
   loading: "idel",
   error: false,
   url: url,
@@ -53,10 +56,18 @@ const CatalogSlice = createSlice({
   name: "CatalogSlice",
   initialState: initialState,
   reducers: {
-    // dellItem(state, action) {
-    //   const id = action.payload;
-    //   state.services = state.services.filter((item) => item.id !== id);
-    // },
+    setOffsetActive(state, action) {
+      state.offsetActive = action.payload;
+    },
+    nextOffset(state, action) {
+      state.offset = +state.offset + 6;
+    },
+    initOffset(state, action) {
+      state.offset = 6;
+    },
+    setActivCategory(state, action) {
+      state.activCategory = action.payload;
+    },
     setItems(state, action) {
       state.items = [...action.payload];
     },

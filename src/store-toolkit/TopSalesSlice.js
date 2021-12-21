@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//const adres = "https://react-diploma--backend.herokuapp.com";
-const adres = "http://localhost";
+const adres = "https://react-diploma--backend.herokuapp.com";
+//const adres = "http://localhost";
 //  http://localhost:7070/api/top-sales
 
-const port = "7070";
+const port = "";
 const url = `${adres}:${port}`;
 
 const initialState = {
