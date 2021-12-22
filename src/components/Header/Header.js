@@ -9,6 +9,7 @@ import { searchCatalogFetch } from "../../store-toolkit/SearchThunk";
 
 function Header() {
   const { searchHeader, form } = useSelector((store) => store.search);
+  const items = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
@@ -58,7 +59,11 @@ function Header() {
                     to={"/cart"}
                     className="header-controls-pic header-controls-cart"
                   >
-                    <div className="header-controls-cart-full">1</div>
+                    {items.length > 0 && (
+                      <div className="header-controls-cart-full">
+                        {items.length}
+                      </div>
+                    )}
                     <div className="header-controls-cart-menu"></div>
                   </NavLink>
                 </div>

@@ -1,11 +1,17 @@
 import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../../store-toolkit/CartSlice";
 import "./desktop.scss";
 
 function Cart() {
+  const dispatch = useDispatch();
   const items = useSelector((store) => store.cart.items);
-  console.log(items);
+  const result = items.reduce((sum, item) => {
+    sum = sum + +item.price * +item.amount;
+    return sum;
+  }, 0);
+
   return (
     <section className="cart">
       <h2 className="text-center">Корзина</h2>
@@ -22,24 +28,38 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row">1</td>
-            <td>
-              <a href="/products/1.html">Босоножки 'MYER'</a>
-            </td>
-            <td>18 US</td>
-            <td>1</td>
-            <td>34 000 руб.</td>
-            <td>34 000 руб.</td>
-            <td>
-              <button className="btn btn-outline-danger btn-sm">Удалить</button>
-            </td>
-          </tr>
+          {items.map((item, index) => {
+            return (
+              <tr key={item.id} id={item.id}>
+                <td scope="row">{+index + 1}</td>
+                <td>
+                  <Link to={`/catalog/${item.id}`}>{item.title}</Link>
+                </td>
+                <td>{item.size}</td>
+                <td>{item.amount}</td>
+                <td>{item.price} руб.</td>
+                <td>{+item.price * +item.amount} руб.</td>
+                <td>
+                  <button
+                    onClick={() =>
+                      dispatch(
+                        cartActions.delItem({ id: item.id, size: item.size })
+                      )
+                    }
+                    className="btn btn-outline-danger btn-sm"
+                  >
+                    Удалить
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+
           <tr>
             <td colSpan="5" className="text-right">
               Общая стоимость
             </td>
-            <td>34 000 руб.</td>
+            <td>{result} руб.</td>
           </tr>
         </tbody>
       </table>
