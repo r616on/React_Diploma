@@ -19,7 +19,7 @@ function Header() {
             </a>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
+                <li className="nav-item">
                   <NavLink to={"/"} className="nav-link">
                     Главная
                   </NavLink>

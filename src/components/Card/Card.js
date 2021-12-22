@@ -12,9 +12,9 @@ function Card({ id, category, title, price, images, catalog }) {
         <div className="card-body">
           <p className="card-text">{title}</p>
           <p className="card-text">{price}.</p>
-          <a href="/products/1.html" className="btn btn-outline-primary">
+          <Link to={`/catalog/${id}`} className="btn btn-outline-primary">
             Заказать
-          </a>
+          </Link>
         </div>
       </div>
     </div>

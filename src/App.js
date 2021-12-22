@@ -14,6 +14,7 @@ import Contacts from "./pages/Contacts/Contacts";
 import NotFound from "./pages/NotFound/NotFound";
 import CartPage from "./pages/CartPage/CartPage";
 import CatalogPage from "./pages/CatalogPage/CatalogPage";
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            {/* <Route path="/services/:id" element={<EditService />} /> */}
+            <Route path="/catalog/:id" element={<ProductPage />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/contacts" element={<Contacts />} />
