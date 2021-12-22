@@ -3,10 +3,12 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItemProduct } from "../../store-toolkit/ProductDescriptionThunk";
 import { productDescriptionActions } from "../../store-toolkit/ProductDescriptionSlice";
+import { cartActions } from "../../store-toolkit/CartSlice";
 import "./desktop.scss";
 
 function ProductDescription({ id }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     title,
     images,
@@ -22,9 +24,14 @@ function ProductDescription({ id }) {
   const { loading, activSize, amount } = useSelector(
     (store) => store.productDescription
   );
+
   useEffect(() => {
     dispatch(fetchItemProduct(id));
   }, []);
+
+  function sizeAvalible() {
+    return sizes.filter((item) => item.avalible).length > 0;
+  }
 
   return loading === "idel" ? (
     <section className="catalog-item">
@@ -66,55 +73,78 @@ function ProductDescription({ id }) {
               </tr>
             </tbody>
           </table>
-          <div className="text-center">
-            <p>
-              Размеры в наличии:
-              {sizes.map((item) => {
-                if (item.avalible) {
-                  return (
-                    <span
-                      key={item.size}
-                      onClick={() =>
-                        dispatch(
-                          productDescriptionActions.setActivSize(item.size)
-                        )
-                      }
-                      className={
-                        activSize === item.size
-                          ? "catalog-item-size selected"
-                          : "catalog-item-size"
-                      }
-                    >
-                      {item.size}
-                    </span>
-                  );
-                }
-              })}
-            </p>
-            <p>
-              Количество:
-              <span className="btn-group btn-group-sm pl-2">
-                <button
-                  onClick={() =>
-                    dispatch(productDescriptionActions.subtractAmount())
+          {sizeAvalible() && (
+            <div className="text-center">
+              <p>
+                Размеры в наличии:{" "}
+                {sizes.map((item) => {
+                  if (item.avalible) {
+                    return (
+                      <span
+                        key={item.size}
+                        onClick={() =>
+                          dispatch(
+                            productDescriptionActions.setActivSize(item.size)
+                          )
+                        }
+                        className={
+                          activSize === item.size
+                            ? "catalog-item-size selected"
+                            : "catalog-item-size"
+                        }
+                      >
+                        {item.size}
+                      </span>
+                    );
                   }
-                  className="btn btn-secondary"
-                >
-                  -
-                </button>
-                <span className="btn btn-outline-primary">{amount}</span>
-                <button
-                  onClick={() =>
-                    dispatch(productDescriptionActions.addAmount())
-                  }
-                  className="btn btn-secondary"
-                >
-                  +
-                </button>
-              </span>
-            </p>
-          </div>
-          <button className="btn btn-danger btn-block btn-lg">В корзину</button>
+                })}
+              </p>
+              <p>
+                Количество:
+                <span className="btn-group btn-group-sm pl-2">
+                  <button
+                    onClick={() =>
+                      dispatch(productDescriptionActions.subtractAmount())
+                    }
+                    className="btn btn-secondary"
+                  >
+                    -
+                  </button>
+                  <span className="btn btn-outline-primary">{amount}</span>
+                  <button
+                    onClick={() =>
+                      dispatch(productDescriptionActions.addAmount())
+                    }
+                    className="btn btn-secondary"
+                  >
+                    +
+                  </button>
+                </span>
+              </p>
+            </div>
+          )}
+          {activSize && sizeAvalible() ? (
+            <button
+              onClick={() => {
+                dispatch(
+                  cartActions.addItem({
+                    id,
+                    title,
+                    size: activSize,
+                    amount,
+                    price,
+                  })
+                );
+                dispatch(productDescriptionActions.initProduct());
+                navigate("/cart");
+              }}
+              className="btn btn-danger btn-block btn-lg"
+            >
+              В корзину
+            </button>
+          ) : (
+            <span>Заказ невозможен без размера. Выберите размер</span>
+          )}
         </div>
       </div>
     </section>

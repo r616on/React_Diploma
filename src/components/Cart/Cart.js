@@ -1,8 +1,11 @@
 import React from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 
 function Cart() {
+  const items = useSelector((store) => store.cart.items);
+  console.log(items);
   return (
     <section className="cart">
       <h2 className="text-center">Корзина</h2>

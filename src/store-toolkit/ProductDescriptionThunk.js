@@ -2,9 +2,7 @@ import { productDescriptionActions } from "./ProductDescriptionSlice";
 
 export const fetchItemProduct = (id) => (dispatch, getState) => {
   const url = getState().productDescription.url;
-  // dispatch(setError(false));
-  dispatch(productDescriptionActions.setLoading("loading"));
-
+  dispatch(productDescriptionActions.initProduct());
   fetch(`${url}/api/items/${id}`)
     .then((response) => {
       if (response.status > 300) {
@@ -13,12 +11,11 @@ export const fetchItemProduct = (id) => (dispatch, getState) => {
       return response.json();
     })
     .then((item) => {
-      dispatch(productDescriptionActions.initProduct());
       dispatch(productDescriptionActions.setItem(item));
       dispatch(productDescriptionActions.setLoading("idel"));
     })
     .catch(() => {
       dispatch(productDescriptionActions.setLoading("idel"));
-      // dispatch(setError(true));
+      dispatch(productDescriptionActions.setError(true));
     });
 };

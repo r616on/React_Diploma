@@ -3,6 +3,7 @@ import TopSales from "./TopSalesSlice";
 import CatalogSlice from "./CatalogSlice";
 import search from "./SearchSlice";
 import productDescription from "./ProductDescriptionSlice";
+import cart from "./CartSlice";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     CatalogSlice,
     search,
     productDescription,
+    cart,
   },
 });

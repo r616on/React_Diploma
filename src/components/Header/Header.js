@@ -5,10 +5,12 @@ import "./desktop.scss";
 import logo from "../../img/header-logo.png";
 import Search from "../Search/Search";
 import { searchActions } from "../../store-toolkit/SearchSlice";
+import { searchCatalogFetch } from "../../store-toolkit/SearchThunk";
 
 function Header() {
-  const { searchHeader } = useSelector((store) => store.search);
+  const { searchHeader, form } = useSelector((store) => store.search);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <header className="container">
       <div className="row">
@@ -43,9 +45,12 @@ function Header() {
               <div>
                 <div className="header-controls-pics">
                   <div
-                    onClick={() =>
-                      dispatch(searchActions.setSearchHeader(!searchHeader))
-                    }
+                    onClick={() => {
+                      dispatch(searchActions.setSearchHeader(!searchHeader));
+                      if (form.name && searchHeader) {
+                        dispatch(searchCatalogFetch(true, navigate));
+                      }
+                    }}
                     className="header-controls-pic header-controls-search"
                   ></div>
 

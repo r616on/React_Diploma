@@ -22,7 +22,7 @@ const productDescription = createSlice({
   initialState: initialState,
   reducers: {
     initProduct(state, action) {
-      state = initialState;
+      return initialState;
     },
     setItem(state, action) {
       state.item = action.payload;
