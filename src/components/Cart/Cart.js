@@ -8,7 +8,7 @@ function Cart() {
   const dispatch = useDispatch();
   const items = useSelector((store) => store.cart.items);
   const result = items.reduce((sum, item) => {
-    sum = sum + +item.price * +item.amount;
+    sum = sum + +item.price * +item.count;
     return sum;
   }, 0);
 
@@ -36,9 +36,9 @@ function Cart() {
                   <Link to={`/catalog/${item.id}`}>{item.title}</Link>
                 </td>
                 <td>{item.size}</td>
-                <td>{item.amount}</td>
+                <td>{item.count}</td>
                 <td>{item.price} руб.</td>
-                <td>{+item.price * +item.amount} руб.</td>
+                <td>{+item.price * +item.count} руб.</td>
                 <td>
                   <button
                     onClick={() =>

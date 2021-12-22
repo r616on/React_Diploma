@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 
 const initialState = { phone: "", address: "", agreement: false };
 
+/////url
+const adres = "https://react-diploma--backend.herokuapp.com";
+//const adres = "http://localhost";
+//  http://localhost:7070/api/top-sales
+
+const port = "";
+const url = `${adres}:${port}`;
+/////
+
 function Order() {
   const [form, setForm] = useState(initialState);
+  const items = useSelector((store) => store.cart.items);
+  console.log(items);
 
   const handleChange = ({ target }) => {
     const name = target.name;
@@ -15,9 +27,22 @@ function Order() {
     });
   };
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    console.log(form);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (form.phone && form.address && form.agreement) {
+      fetch(`${url}/api/order`, {
+        method: "POST",
+        body: JSON.stringify({
+          owner: {
+            phone: form.phone,
+            address: form.address,
+          },
+          items: [...items],
+        }),
+      }).then((resp) => {
+        console.log(resp);
+      });
+    }
   };
   return (
     <section className="order">
@@ -27,6 +52,7 @@ function Order() {
           <div className="form-group">
             <label htmlFor="phone">Телефон</label>
             <input
+              type="text"
               className="form-control"
               name="phone"
               id="phone"
@@ -38,6 +64,7 @@ function Order() {
           <div className="form-group">
             <label htmlFor="address">Адрес доставки</label>
             <input
+              type="text"
               className="form-control"
               name="address"
               id="address"

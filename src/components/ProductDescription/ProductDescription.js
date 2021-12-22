@@ -21,9 +21,11 @@ function ProductDescription({ id }) {
     price,
     sizes,
   } = useSelector((store) => store.productDescription.item);
-  const { loading, activSize, amount } = useSelector(
-    (store) => store.productDescription
-  );
+  const {
+    loading,
+    activSize,
+    count: count,
+  } = useSelector((store) => store.productDescription);
 
   useEffect(() => {
     dispatch(fetchItemProduct(id));
@@ -104,16 +106,16 @@ function ProductDescription({ id }) {
                 <span className="btn-group btn-group-sm pl-2">
                   <button
                     onClick={() =>
-                      dispatch(productDescriptionActions.subtractAmount())
+                      dispatch(productDescriptionActions.subtractCount())
                     }
                     className="btn btn-secondary"
                   >
                     -
                   </button>
-                  <span className="btn btn-outline-primary">{amount}</span>
+                  <span className="btn btn-outline-primary">{count}</span>
                   <button
                     onClick={() =>
-                      dispatch(productDescriptionActions.addAmount())
+                      dispatch(productDescriptionActions.addCount())
                     }
                     className="btn btn-secondary"
                   >
@@ -128,11 +130,11 @@ function ProductDescription({ id }) {
               onClick={() => {
                 dispatch(
                   cartActions.addItem({
-                    id,
+                    id: +id,
                     title,
                     size: activSize,
-                    amount,
-                    price,
+                    count,
+                    price: +price,
                   })
                 );
                 dispatch(productDescriptionActions.initProduct());

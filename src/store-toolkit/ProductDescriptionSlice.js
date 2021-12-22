@@ -13,7 +13,7 @@ const initialState = {
   error: false,
   url: url,
   activSize: "",
-  amount: 1,
+  count: 1,
 };
 //action={type:"",payload:""}
 
@@ -36,14 +36,14 @@ const productDescription = createSlice({
     setLoading(state, action) {
       state.loading = action.payload;
     },
-    addAmount(state, action) {
-      if (+state.amount < 10) {
-        state.amount = +state.amount + 1;
+    addCount(state, action) {
+      if (+state.count < 10) {
+        state.count = +state.count + 1;
       }
     },
-    subtractAmount(state, action) {
-      if (+state.amount > 1) {
-        state.amount = +state.amount - 1;
+    subtractCount(state, action) {
+      if (+state.count > 1) {
+        state.count = +state.count - 1;
       }
     },
   },
