@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
@@ -9,6 +9,12 @@ function Search({ header }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { form } = useSelector((store) => store.search);
+
+  useEffect(() => {
+    return () => {
+      dispatch(searchActions.initForm());
+    };
+  }, []);
 
   const handleChange = ({ target }) => {
     const name = target.name;

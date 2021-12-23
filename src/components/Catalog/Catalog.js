@@ -25,15 +25,17 @@ function Catalog({ index }) {
 
   useEffect(() => {
     dispatch(filterCategory(activCategory));
+    return () => {
+      dispatch(catalogActions.initCatalog());
+    };
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(catalogActions.initOffset());
     if (!offsetActive) {
-      dispatch(categoriesActions.setOffsetActive(true));
+      dispatch(catalogActions.setOffsetActive(true));
     }
   }, [activCategory]);
-
   return (
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
@@ -61,7 +63,7 @@ function Catalog({ index }) {
         })}
       </div>
       <div className="text-center">
-        {offsetActive && (
+        {!(items.length < 6) && offsetActive ? (
           <button
             onClick={() => {
               dispatch(offsetCatalogFetch(offset));
@@ -70,7 +72,7 @@ function Catalog({ index }) {
           >
             Загрузить ещё
           </button>
-        )}
+        ) : null}
       </div>
     </section>
   );

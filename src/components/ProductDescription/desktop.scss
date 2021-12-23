@@ -1,0 +1,15 @@
+.Product_Preloader {
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Product_img_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.img_Product {
+  object-fit: contain;
+  object-position: center;
+}

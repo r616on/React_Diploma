@@ -25,17 +25,10 @@ const initialState = {
     //   ],
     // },
   ],
-  category: [
-    // { id: 12, title: "Мужская обувь" },
-    // { id: 13, title: "Женская обувь" },
-  ],
-  activCategory: "all",
   offset: 6,
   offsetActive: true,
   loading: "loading",
   error: false,
-  loadingCategory: "loading",
-  errorCategory: false,
   url: url,
 };
 //action={type:"",payload:""}
@@ -44,6 +37,9 @@ const CatalogSlice = createSlice({
   name: "CatalogSlice",
   initialState: initialState,
   reducers: {
+    initCatalog(state, action) {
+      return initialState;
+    },
     setOffsetActive(state, action) {
       state.offsetActive = action.payload;
     },
@@ -53,26 +49,16 @@ const CatalogSlice = createSlice({
     initOffset(state, action) {
       state.offset = 6;
     },
-    setActivCategory(state, action) {
-      state.activCategory = action.payload;
-    },
+
     setItems(state, action) {
       state.items = [...action.payload];
     },
-    setCategory(state, action) {
-      state.category = [...action.payload];
-    },
+
     setError(state, action) {
       state.error = action.payload;
     },
     setLoading(state, action) {
       state.loading = action.payload;
-    },
-    setErrorCategory(state, action) {
-      state.errorCategory = action.payload;
-    },
-    setLoadingCategory(state, action) {
-      state.loadingCategory = action.payload;
     },
   },
 });
