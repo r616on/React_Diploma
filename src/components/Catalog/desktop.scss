@@ -37,6 +37,9 @@
   outline: none;
   box-shadow: none;
 }
+.nav-link {
+  cursor: pointer;
+}
 .catalog__row {
   position: relative;
   min-height: 200px;

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 import logo from "../../img/header-logo.png";
@@ -17,9 +17,9 @@ function Header() {
       <div className="row">
         <div className="col">
           <nav className="navbar navbar-expand-sm navbar-light bg-light">
-            <a className="navbar-brand" href="/">
+            <Link to={"/"} className="navbar-brand">
               <img src={logo} alt="Bosa Noga" />
-            </a>
+            </Link>
             <div className="collapase navbar-collapse" id="navbarMain">
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
