@@ -4,45 +4,38 @@ const url = process.env.REACT_APP_URL;
 
 const initialState = {
   items: [
-    {
-      id: 65,
-      category: 15,
-      title: "Босоножки 'Keira'",
-      price: 7600,
-      images: [
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira.jpg",
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira_2.jpg",
-      ],
-    },
-    {
-      id: 66,
-      category: 13,
-      title: "Босоножки 'Myer' с завязкой на щиколотке",
-      price: 34000,
-      images: [
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer.jpg",
-        "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer_2.jpg",
-      ],
-    },
     // {
-    //   id: 73,
+    //   id: 65,
     //   category: 15,
-    //   title: "Супергеройские кеды",
-    //   price: 1400,
+    //   title: "Босоножки 'Keira'",
+    //   price: 7600,
     //   images: [
-    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/superhero_sneakers.jpg",
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira.jpg",
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_keira_2.jpg",
+    //   ],
+    // },
+    // {
+    //   id: 66,
+    //   category: 13,
+    //   title: "Босоножки 'Myer' с завязкой на щиколотке",
+    //   price: 34000,
+    //   images: [
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer.jpg",
+    //     "https://raw.githubusercontent.com/netology-code/ra16-diploma/master/html/img/products/sandals_myer_2.jpg",
     //   ],
     // },
   ],
   category: [
-    { id: 12, title: "Мужская обувь" },
-    { id: 13, title: "Женская обувь" },
+    // { id: 12, title: "Мужская обувь" },
+    // { id: 13, title: "Женская обувь" },
   ],
   activCategory: "all",
   offset: 6,
   offsetActive: true,
   loading: "loading",
   error: false,
+  loadingCategory: "loading",
+  errorCategory: false,
   url: url,
 };
 //action={type:"",payload:""}
@@ -74,6 +67,12 @@ const CatalogSlice = createSlice({
     },
     setLoading(state, action) {
       state.loading = action.payload;
+    },
+    setErrorCategory(state, action) {
+      state.errorCategory = action.payload;
+    },
+    setLoadingCategory(state, action) {
+      state.loadingCategory = action.payload;
     },
   },
 });

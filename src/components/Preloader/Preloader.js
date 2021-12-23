@@ -1,9 +1,9 @@
 import React from "react";
 import "./desktop.scss";
 
-function Preloader() {
+function Preloader(props) {
   return (
-    <div class="preloader">
+    <div className={`preloader ${props.big ? "big" : ""} `}>
       <span></span>
       <span></span>
       <span></span>

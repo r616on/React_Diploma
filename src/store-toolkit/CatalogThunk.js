@@ -1,27 +1,9 @@
 import { catalogActions } from "./CatalogSlice";
+import { categoriesActions } from "./CategoriesSlice";
 
-export const fetchCategoryItems = () => (dispatch, getState) => {
-  const url = getState().CatalogSlice.url;
-  dispatch(catalogActions.setError(false));
-  dispatch(catalogActions.setLoading("loading"));
-  fetch(`${url}/api/categories`)
-    .then((response) => {
-      if (response.status > 300) {
-        console.log("error" + response.status);
-      }
-      return response.json();
-    })
-    .then((items) => {
-      dispatch(catalogActions.setCategory(items));
-      dispatch(catalogActions.setLoading("idel"));
-    })
-    .catch(() => {
-      dispatch(catalogActions.setLoading("idel"));
-      dispatch(catalogActions.setError(true));
-    });
-};
 export const filterCategory = () => (dispatch, getState) => {
-  const { url, activCategory } = getState().CatalogSlice;
+  const { url } = getState().CatalogSlice;
+  const { activCategory } = getState().categoriesSlice;
   dispatch(catalogActions.setError(false));
   dispatch(catalogActions.setLoading("loading"));
   const name = getState().search.form.name;
@@ -51,9 +33,12 @@ export const filterCategory = () => (dispatch, getState) => {
 };
 
 export const offsetCatalogFetch = () => (dispatch, getState) => {
-  const { url, activCategory, offset } = getState().CatalogSlice;
+  const { url, offset } = getState().CatalogSlice;
+  const { activCategory } = getState().categoriesSlice;
+
   dispatch(catalogActions.setError(false));
   dispatch(catalogActions.setLoading("loading"));
+
   const name = getState().search.form.name;
   let params = "";
   if (name) {

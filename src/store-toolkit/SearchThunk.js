@@ -3,7 +3,8 @@ import { searchActions } from "./SearchSlice";
 
 export const searchCatalogFetch =
   (header, navigate) => (dispatch, getState) => {
-    const { url, activCategory } = getState().CatalogSlice;
+    const { url } = getState().CatalogSlice;
+    const { activCategory } = getState().categoriesSlice;
     if (header) {
       dispatch(searchActions.setSearchHeader(false));
       navigate("/catalog");

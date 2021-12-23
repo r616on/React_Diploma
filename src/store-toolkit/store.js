@@ -13,6 +13,7 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 
 import TopSales from "./TopSalesSlice";
 import CatalogSlice from "./CatalogSlice";
+import categoriesSlice from "./CategoriesSlice";
 import search from "./SearchSlice";
 import productDescription from "./ProductDescriptionSlice";
 import cart from "./CartSlice";
@@ -20,6 +21,7 @@ import cart from "./CartSlice";
 const rootReducer = combineReducers({
   TopSales,
   CatalogSlice,
+  categoriesSlice,
   search,
   productDescription,
   cart,
