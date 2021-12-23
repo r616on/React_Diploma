@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const url = process.env.REACT_APP_URL;
+import { url } from "../config";
 
 const initialState = {
   items: [

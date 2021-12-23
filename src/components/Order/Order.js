@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../../store-toolkit/CartSlice";
 import Preloader from "../Preloader/Preloader";
+import { url } from "../../config";
 
 import "./desktop.scss";
 
@@ -26,7 +27,6 @@ function Order() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.phone && form.address && form.agreement) {
-      const url = process.env.REACT_APP_URL;
       setSuccess(false);
       setError(false);
       setLoading("loading");
