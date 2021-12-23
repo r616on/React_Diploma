@@ -14,7 +14,7 @@ function Search({ header }) {
     return () => {
       dispatch(searchActions.initForm());
     };
-  }, []);
+  }, [dispatch]);
 
   const handleChange = ({ target }) => {
     const name = target.name;

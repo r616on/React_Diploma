@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 import "./desktop.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -7,7 +6,6 @@ import {
   offsetCatalogFetch,
 } from "../../store-toolkit/CatalogThunk";
 import { catalogActions } from "../../store-toolkit/CatalogSlice";
-import { categoriesActions } from "../../store-toolkit/CategoriesSlice";
 import Card from "../Card/Card";
 import Search from "../Search/Search";
 import Preloader from "../Preloader/Preloader";
@@ -28,6 +26,7 @@ function Catalog({ index }) {
     return () => {
       dispatch(catalogActions.initCatalog());
     };
+    // eslint-disable-next-line
   }, [dispatch]);
 
   useEffect(() => {
@@ -35,6 +34,7 @@ function Catalog({ index }) {
     if (!offsetActive) {
       dispatch(catalogActions.setOffsetActive(true));
     }
+    // eslint-disable-next-line
   }, [activCategory]);
   return (
     <section className="catalog">

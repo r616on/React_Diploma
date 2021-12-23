@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItemProduct } from "../../store-toolkit/ProductDescriptionThunk";
 import { productDescriptionActions } from "../../store-toolkit/ProductDescriptionSlice";
@@ -29,7 +29,8 @@ function ProductDescription({ id }) {
 
   useEffect(() => {
     dispatch(fetchItemProduct(id));
-  }, []);
+    // eslint-disable-next-line
+  }, [dispatch]);
 
   function sizeAvalible() {
     if (sizes) {
@@ -118,6 +119,8 @@ function ProductDescription({ id }) {
                             {item.size}
                           </span>
                         );
+                      } else {
+                        return null;
                       }
                     })}
                   </p>

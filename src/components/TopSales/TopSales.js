@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchItemsTopSales } from "../../store-toolkit/TopSalesThunk";
 import "./desktop.scss";
@@ -9,11 +8,10 @@ import ErrorView from "../ErrorView/ErrorView";
 
 function TopSales() {
   const { items, loading, error } = useSelector((store) => store.TopSales);
-  console.log(error);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchItemsTopSales());
-  }, []);
+  }, [dispatch]);
   return (
     <section className="top-sales">
       <h2 className="text-center">Хиты продаж!</h2>

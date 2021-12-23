@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+
 import "./desktop.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoryItems } from "../../store-toolkit/CategoriesThunk";
-import {
-  filterCategory,
-  offsetCatalogFetch,
-} from "../../store-toolkit/CatalogThunk";
+import { filterCategory } from "../../store-toolkit/CatalogThunk";
 import { categoriesActions } from "../../store-toolkit/CategoriesSlice";
-import Card from "../Card/Card";
-import Search from "../Search/Search";
 import Preloader from "../Preloader/Preloader";
 import ErrorView from "../ErrorView/ErrorView";
-import Categories from "../Сategories/Сategories";
 
 function Сategories() {
   const { category, activCategory, loading, error } = useSelector(

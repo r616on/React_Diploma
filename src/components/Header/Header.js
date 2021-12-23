@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams, useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 import logo from "../../img/header-logo.png";

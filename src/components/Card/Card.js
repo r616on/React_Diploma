@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./desktop.scss";
 
-function Card({ id, category, title, price, images, catalog }) {
+function Card({ id, title, price, images, catalog }) {
   return (
     <div className="col-4">
       <div className={`card ${catalog ? "catalog-item-card" : ""}`}>

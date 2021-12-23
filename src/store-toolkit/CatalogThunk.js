@@ -1,5 +1,4 @@
 import { catalogActions } from "./CatalogSlice";
-import { categoriesActions } from "./CategoriesSlice";
 
 export const filterCategory = () => (dispatch, getState) => {
   const { url } = getState().CatalogSlice;

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../../store-toolkit/CartSlice";
+import Preloader from "../Preloader/Preloader";
+
 import "./desktop.scss";
 
 const initialState = { phone: "", address: "", agreement: false };
@@ -10,6 +11,7 @@ function Order() {
   const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
   const [loading, setLoading] = useState("idel");
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const items = useSelector((store) => store.cart.items);
 
@@ -25,6 +27,8 @@ function Order() {
     e.preventDefault();
     if (form.phone && form.address && form.agreement) {
       const url = process.env.REACT_APP_URL;
+      setSuccess(false);
+      setError(false);
       setLoading("loading");
       fetch(`${url}/api/order`, {
         method: "POST",
@@ -38,6 +42,7 @@ function Order() {
       })
         .then((resp) => {
           if (resp.status > 200 && resp.status < 300) {
+            setSuccess(true);
             setLoading("idel");
             setForm(initialState);
             dispatch(cartActions.initCart());
@@ -51,6 +56,12 @@ function Order() {
   };
   return (
     <section className="order">
+      {loading === "loading" ? (
+        <div className="order_Preloader">
+          {loading === "loading" ? <Preloader /> : null}
+          {/* {error ? <ErrorView>ОЙ....Ошибка загрузки данных</ErrorView> : null} */}
+        </div>
+      ) : null}
       <h2 className="text-center">Оформить заказ</h2>
       <div className="card" style={{ maxWidth: "30rem", margin: " 0 auto" }}>
         <form className="card-body" onSubmit={handleSubmit}>
@@ -91,9 +102,20 @@ function Order() {
               Согласен с правилами доставки
             </label>
           </div>
-          <button type="submit" className="btn btn-outline-secondary">
-            Оформить
-          </button>
+          <div className="Order_control">
+            <button type="submit" className="btn btn-outline-secondary">
+              Оформить
+            </button>
+            <div
+              className="status_massage"
+              style={
+                success ? { color: "green" } : error ? { color: "red" } : null
+              }
+            >
+              {success ? "Успешно" : null}
+              {error ? "Ошибка запроса" : null}
+            </div>
+          </div>
         </form>
       </div>
     </section>

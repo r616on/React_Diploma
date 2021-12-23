@@ -11,6 +11,7 @@ const cart = createSlice({
   reducers: {
     addItem(state, action) {
       const { id, size, count, price } = action.payload;
+      // eslint-disable-next-line
       const index = state.items.findIndex((item) => {
         if (item.id === id && item.size === size) {
           return true;
@@ -25,6 +26,7 @@ const cart = createSlice({
     },
     delItem(state, action) {
       const { id, size } = action.payload;
+      // eslint-disable-next-line
       state.items = state.items.filter((item) => {
         if (item.id !== id || item.size !== size) {
           return true;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../../store-toolkit/CartSlice";
 import "./desktop.scss";
@@ -31,7 +31,7 @@ function Cart() {
           {items.map((item, index) => {
             return (
               <tr key={item.id} id={item.id}>
-                <td scope="row">{+index + 1}</td>
+                <td>{+index + 1}</td>
                 <td>
                   <Link to={`/catalog/${item.id}`}>{item.title}</Link>
                 </td>
