@@ -11,6 +11,8 @@ export const searchCatalogFetch =
 
     const name = getState().search.form.name;
     const params = new URLSearchParams({ q: name });
+    dispatch(catalogActions.setError(false));
+    dispatch(catalogActions.setLoading("loading"));
     fetch(
       activCategory === "all"
         ? `${url}/api/items?${params}`
@@ -26,10 +28,10 @@ export const searchCatalogFetch =
         // dispatch(searchActions.initForm());
         dispatch(catalogActions.setItems(items));
 
-        // dispatch(setLoading("idel"));
+        dispatch(catalogActions.setLoading("idel"));
       })
       .catch(() => {
-        // dispatch(setLoading("idel"));
-        // dispatch(setError(true));
+        dispatch(catalogActions.setLoading("idel"));
+        dispatch(catalogActions.setError(true));
       });
   };

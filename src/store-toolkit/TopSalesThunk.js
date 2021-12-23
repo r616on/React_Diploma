@@ -2,8 +2,8 @@ import { topSalesActons } from "./TopSalesSlice";
 
 export const fetchItemsTopSales = () => (dispatch, getState) => {
   const url = getState().TopSales.url;
-  // dispatch(setError(false));
-  // dispatch(setLoading("loading"));
+  dispatch(topSalesActons.setError(false));
+  dispatch(topSalesActons.setLoading("loading"));
   fetch(`${url}/api/top-sales`)
     .then((response) => {
       if (response.status > 300) {
@@ -13,10 +13,10 @@ export const fetchItemsTopSales = () => (dispatch, getState) => {
     })
     .then((items) => {
       dispatch(topSalesActons.setItems(items));
-      // dispatch(setLoading("idel"));
+      dispatch(topSalesActons.setLoading("idel"));
     })
     .catch(() => {
-      // dispatch(setLoading("idel"));
-      // dispatch(setError(true));
+      dispatch(topSalesActons.setLoading("idel"));
+      dispatch(topSalesActons.setError(true));
     });
 };

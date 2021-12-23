@@ -2,8 +2,8 @@ import { catalogActions } from "./CatalogSlice";
 
 export const fetchCategoryItems = () => (dispatch, getState) => {
   const url = getState().CatalogSlice.url;
-  // dispatch(setError(false));
-  // dispatch(setLoading("loading"));
+  dispatch(catalogActions.setError(false));
+  dispatch(catalogActions.setLoading("loading"));
   fetch(`${url}/api/categories`)
     .then((response) => {
       if (response.status > 300) {
@@ -13,17 +13,17 @@ export const fetchCategoryItems = () => (dispatch, getState) => {
     })
     .then((items) => {
       dispatch(catalogActions.setCategory(items));
-      // dispatch(setLoading("idel"));
+      dispatch(catalogActions.setLoading("idel"));
     })
     .catch(() => {
-      // dispatch(setLoading("idel"));
-      // dispatch(setError(true));
+      dispatch(catalogActions.setLoading("idel"));
+      dispatch(catalogActions.setError(true));
     });
 };
 export const filterCategory = () => (dispatch, getState) => {
   const { url, activCategory } = getState().CatalogSlice;
-  // dispatch(setError(false));
-  // dispatch(setLoading("loading"));
+  dispatch(catalogActions.setError(false));
+  dispatch(catalogActions.setLoading("loading"));
   const name = getState().search.form.name;
   let params = "";
   if (name) {
@@ -42,18 +42,18 @@ export const filterCategory = () => (dispatch, getState) => {
     })
     .then((items) => {
       dispatch(catalogActions.setItems(items));
-      // dispatch(setLoading("idel"));
+      dispatch(catalogActions.setLoading("idel"));
     })
     .catch(() => {
-      // dispatch(setLoading("idel"));
-      // dispatch(setError(true));
+      dispatch(catalogActions.setLoading("idel"));
+      dispatch(catalogActions.setError(true));
     });
 };
 
 export const offsetCatalogFetch = () => (dispatch, getState) => {
   const { url, activCategory, offset } = getState().CatalogSlice;
-  // dispatch(setError(false));
-  // dispatch(setLoading("loading"));
+  dispatch(catalogActions.setError(false));
+  dispatch(catalogActions.setLoading("loading"));
   const name = getState().search.form.name;
   let params = "";
   if (name) {
@@ -80,10 +80,10 @@ export const offsetCatalogFetch = () => (dispatch, getState) => {
         dispatch(catalogActions.nextOffset());
       }
 
-      // dispatch(setLoading("idel"));
+      dispatch(catalogActions.setLoading("idel"));
     })
     .catch(() => {
-      // dispatch(setLoading("idel"));
-      // dispatch(setError(true));
+      dispatch(catalogActions.setLoading("idel"));
+      dispatch(catalogActions.setError(true));
     });
 };

@@ -4,7 +4,7 @@ const url = process.env.REACT_APP_URL;
 
 const initialState = {
   items: [],
-  loading: "idel",
+  loading: "loading",
   error: false,
   url: url,
 };
@@ -14,10 +14,6 @@ const TopSales = createSlice({
   name: "TopSales",
   initialState: initialState,
   reducers: {
-    // dellItem(state, action) {
-    //   const id = action.payload;
-    //   state.services = state.services.filter((item) => item.id !== id);
-    // },
     setItems(state, action) {
       state.items = [...action.payload];
     },

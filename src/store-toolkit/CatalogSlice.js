@@ -41,7 +41,7 @@ const initialState = {
   activCategory: "all",
   offset: 6,
   offsetActive: true,
-  loading: "idel",
+  loading: "loading",
   error: false,
   url: url,
 };
