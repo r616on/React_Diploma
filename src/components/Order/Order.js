@@ -1,23 +1,17 @@
 import React, { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { cartActions } from "../../store-toolkit/CartSlice";
 import "./desktop.scss";
 
 const initialState = { phone: "", address: "", agreement: false };
 
-/////url
-const adres = "https://react-diploma--backend.herokuapp.com";
-//const adres = "http://localhost";
-//  http://localhost:7070/api/top-sales
-
-const port = "";
-const url = `${adres}:${port}`;
-/////
-
 function Order() {
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
+  const [loading, setLoading] = useState("idel");
+  const [error, setError] = useState(false);
   const items = useSelector((store) => store.cart.items);
-  console.log(items);
 
   const handleChange = ({ target }) => {
     const name = target.name;
@@ -30,6 +24,8 @@ function Order() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.phone && form.address && form.agreement) {
+      const url = process.env.REACT_APP_URL;
+      setLoading("loading");
       fetch(`${url}/api/order`, {
         method: "POST",
         body: JSON.stringify({
@@ -39,9 +35,18 @@ function Order() {
           },
           items: [...items],
         }),
-      }).then((resp) => {
-        console.log(resp);
-      });
+      })
+        .then((resp) => {
+          if (resp.status > 200 && resp.status < 300) {
+            setLoading("idel");
+            setForm(initialState);
+            dispatch(cartActions.initCart());
+          }
+        })
+        .catch(() => {
+          setLoading("idel");
+          setError(true);
+        });
     }
   };
   return (

@@ -31,6 +31,9 @@ const cart = createSlice({
         }
       });
     },
+    initCart(state, action) {
+      return initialState;
+    },
   },
 });
 
