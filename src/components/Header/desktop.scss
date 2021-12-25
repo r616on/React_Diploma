@@ -24,6 +24,7 @@
 .header-controls-cart {
   position: relative;
   background-position: 0 0;
+  margin-right: 20px;
 }
 .header-controls-cart-full {
   position: absolute;
@@ -42,7 +43,7 @@
 }
 .header-controls-search-form {
   position: absolute;
-  right: 65px;
+  right: 60px;
   top: calc(50% - 19px);
   display: block;
   width: 233px;
@@ -60,4 +61,20 @@
   border: none;
   outline: none;
   box-shadow: none;
+}
+.header-controls__row {
+  position: relative;
+}
+.burger {
+  width: 45px;
+  height: 45px;
+  position: relative;
+  z-index: 10;
+}
+.burger__item {
+  display: block;
+  width: 45px;
+  height: 6px;
+  background-color: #4b4b4b;
+  margin-bottom: 4px;
 }

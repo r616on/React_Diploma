@@ -18,7 +18,7 @@ function TopSales() {
       {loading === "loading" ? <Preloader /> : null}
       {error ? <ErrorView>Ошибка загрузки данных</ErrorView> : null}
       {loading === "idel" && items.length > 0 ? (
-        <div className="row">
+        <div className="row gy-5">
           {items.map((item) => {
             return (
               <Card

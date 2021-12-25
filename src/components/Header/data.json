@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Главная",
+    "route": "/"
+  },
+  {
+    "title": "Каталог",
+    "route": "/catalog"
+  },
+  {
+    "title": "О магазине",
+    "route": "/about"
+  },
+  {
+    "title": "Контакты",
+    "route": "/contacts"
+  }
+]
