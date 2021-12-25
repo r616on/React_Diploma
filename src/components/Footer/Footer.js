@@ -1,35 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./desktop.scss";
+import topMenuItems from "../Header/data.json";
 
 function Footer() {
   return (
     <footer className="container bg-light footer">
-      <div className="row">
-        <div className="col">
-          <section>
-            <h5>Информация</h5>
-            <ul className="nav flex-column">
-              <li className="nav-item">
-                <Link to={"/about"} className="nav-link">
-                  О магазине
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/catalog"} className="nav-link">
-                  Каталог
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/contacts"} className="nav-link">
-                  Контакты
-                </Link>
-              </li>
-            </ul>
-          </section>
-        </div>
-        <div className="col">
-          <section>
+      <div className="row footer__row">
+        <section className="col footer__info">
+          <h5>Информация</h5>
+          <ul className="nav flex-column">
+            {topMenuItems.map((item) => {
+              return (
+                <li key={item.title} className="nav-item">
+                  <Link to={item.route} className="nav-link">
+                    {item.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+
+        <div className="col payment">
+          <section className="col">
             <h5>Принимаем к оплате:</h5>
             <div className="footer-pay">
               <div className="footer-pay-systems footer-pay-systems-paypal"></div>
@@ -40,8 +34,8 @@ function Footer() {
               <div className="footer-pay-systems footer-pay-systems-qiwi"></div>
             </div>
           </section>
-          <section>
-            <div className="footer-copyright">
+          <section className="footer-copyright col">
+            <div className="footer-copyright__row">
               2009-2019 © BosaNoga.ru — модный интернет-магазин обуви и
               аксессуаров. Все права защищены.
               <br />
@@ -49,9 +43,10 @@ function Footer() {
             </div>
           </section>
         </div>
-        <div className="col text-right">
-          <section className="footer-contacts">
-            <h5>Контакты:</h5>
+
+        <section className="col text-right footer-contacts">
+          <h5>Контакты:</h5>
+          <div className="footer-contacts__row">
             <a className="footer-contacts-phone" href="tel:+7-495-790-35-03">
               +7 495 79 03 5 03
             </a>
@@ -64,12 +59,12 @@ function Footer() {
             >
               office@bosanoga.ru
             </a>
-            <div className="footer-social-links">
-              <div className="footer-social-link footer-social-link-twitter"></div>
-              <div className="footer-social-link footer-social-link-vk"></div>
-            </div>
-          </section>
-        </div>
+          </div>
+          <div className="footer-social-links">
+            <div className="footer-social-link footer-social-link-twitter"></div>
+            <div className="footer-social-link footer-social-link-vk"></div>
+          </div>
+        </section>
       </div>
     </footer>
   );

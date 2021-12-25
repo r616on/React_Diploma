@@ -64,6 +64,34 @@ function Header() {
                 id="navbarSupportedContent"
               >
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0 flex-fill">
+                  <div className="header-controls__row__mobile ">
+                    <div className="header-controls-pics">
+                      <div
+                        onClick={() => {
+                          dispatch(
+                            searchActions.setSearchHeader(!searchHeader)
+                          );
+                          if (form.name && searchHeader) {
+                            dispatch(searchCatalogFetch(true, navigate));
+                          }
+                        }}
+                        className="header-controls-pic header-controls-search"
+                      ></div>
+
+                      <NavLink
+                        to={"/cart"}
+                        className="header-controls-pic header-controls-cart"
+                      >
+                        {items.length > 0 && (
+                          <div className="header-controls-cart-full">
+                            {items.length}
+                          </div>
+                        )}
+                        <div className="header-controls-cart-menu"></div>
+                      </NavLink>
+                    </div>
+                    {<Search header />}
+                  </div>
                   {topMenuItems.map((item) => {
                     return (
                       <li key={item.title} className="nav-item">

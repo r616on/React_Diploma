@@ -2,22 +2,61 @@
 .banner {
   position: relative;
 }
-
 .banner-header {
   position: absolute;
   z-index: 5;
   right: 0;
-  top: 42px;
-  height: 98px;
-  width: 487px;
+  top: 0;
+  height: 50%;
+  width: 70%;
   font-weight: bold;
-  font-size: 48px;
-  line-height: 98px;
+  font-size: 20px;
+  line-height: 1.5;
   text-align: center;
   color: #ffffff;
+  margin-top: 12%;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 15px;
   background: linear-gradient(
     270deg,
     rgba(161, 179, 191, 0.8) 72.59%,
     rgba(161, 179, 191, 0) 98.05%
   );
+}
+
+@media (max-width: 576px) {
+}
+@media (min-width: 410px) {
+  .banner-header {
+    font-size: 30px;
+  }
+}
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+  .banner-header {
+    font-size: 40px;
+  }
+}
+@media (min-width: 992px) {
+  .banner-header {
+    position: absolute;
+    z-index: 5;
+    right: 0;
+    top: 42px;
+    height: 98px;
+    width: 487px;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 98px;
+    text-align: center;
+    color: #ffffff;
+  }
+}
+@media (min-width: 1200px) {
+}
+@media (min-width: 1400px) {
 }
