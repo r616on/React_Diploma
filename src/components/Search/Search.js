@@ -10,11 +10,11 @@ function Search({ header }) {
   const navigate = useNavigate();
   const { form } = useSelector((store) => store.search);
 
-  useEffect(() => {
-    return () => {
-      dispatch(searchActions.initForm());
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(searchActions.initForm());
+  //   };
+  // }, [dispatch]);
 
   const handleChange = ({ target }) => {
     const name = target.name;
