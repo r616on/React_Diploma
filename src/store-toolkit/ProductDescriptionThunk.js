@@ -17,5 +17,8 @@ export const fetchItemProduct = (id) => (dispatch, getState) => {
     .catch(() => {
       dispatch(productDescriptionActions.setLoading("idel"));
       dispatch(productDescriptionActions.setError(true));
+      setTimeout(() => {
+        dispatch(fetchItemProduct(id));
+      }, 3000);
     });
 };

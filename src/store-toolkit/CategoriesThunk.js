@@ -18,5 +18,8 @@ export const fetchCategoryItems = () => (dispatch, getState) => {
     .catch(() => {
       dispatch(categoriesActions.setLoading("idel"));
       dispatch(categoriesActions.setError(true));
+      setTimeout(() => {
+        dispatch(fetchCategoryItems());
+      }, 3000);
     });
 };

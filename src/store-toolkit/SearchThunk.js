@@ -34,5 +34,8 @@ export const searchCatalogFetch =
       .catch(() => {
         dispatch(catalogActions.setLoading("idel"));
         dispatch(catalogActions.setError(true));
+        setTimeout(() => {
+          dispatch(searchCatalogFetch(navigate, catalog));
+        }, 3000);
       });
   };

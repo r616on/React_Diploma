@@ -28,6 +28,9 @@ export const filterCategory = () => (dispatch, getState) => {
     .catch(() => {
       dispatch(catalogActions.setLoading("idel"));
       dispatch(catalogActions.setError(true));
+      setTimeout(() => {
+        dispatch(filterCategory());
+      }, 3000);
     });
 };
 
@@ -69,5 +72,9 @@ export const offsetCatalogFetch = () => (dispatch, getState) => {
     .catch(() => {
       dispatch(catalogActions.setLoading("idel"));
       dispatch(catalogActions.setError(true));
+
+      setTimeout(() => {
+        dispatch(offsetCatalogFetch());
+      }, 3000);
     });
 };

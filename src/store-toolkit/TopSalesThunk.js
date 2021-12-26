@@ -18,5 +18,8 @@ export const fetchItemsTopSales = () => (dispatch, getState) => {
     .catch(() => {
       dispatch(topSalesActons.setLoading("idel"));
       dispatch(topSalesActons.setError(true));
+      setTimeout(() => {
+        dispatch(fetchItemsTopSales());
+      }, 3000);
     });
 };
