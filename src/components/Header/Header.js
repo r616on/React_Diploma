@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 import logo from "../../img/header-logo.png";
 import Search from "../Search/Search";
-import { searchActions } from "../../store-toolkit/SearchSlice";
-import { searchCatalogFetch } from "../../store-toolkit/SearchThunk";
+
 import topMenuItems from "./data.json";
 
 function Header() {
@@ -13,28 +12,34 @@ function Header() {
   const items = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [menuTogle, setMenuTogle] = useState(false);
   return (
     <header className="container">
       <div className="row">
         <div className="col">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid justify-content-md-end">
-              <Link to={"/"} className="navbar-brand ">
-                <img src={logo} alt="Bosa Noga" />
+            <div className="container-fluid navbar__row">
+              <Link to={"/"} className="navbar-brand logo__pic ">
+                <img className="logo__pic__img" src={logo} alt="Bosa Noga" />
               </Link>
-              <div className="d-flex  header-controls__row flex-fill justify-content-md-end  order-lg-3">
-                <div className="header-controls-pics">
-                  <div
-                    onClick={() => {
-                      dispatch(searchActions.setSearchHeader(!searchHeader));
-                      if (form.name && searchHeader) {
-                        dispatch(searchCatalogFetch(true, navigate));
-                      }
-                    }}
-                    className="header-controls-pic header-controls-search"
-                  ></div>
 
-                  <NavLink
+              <ul className="navbar-nav nav__items__row">
+                {topMenuItems.map((item) => {
+                  return (
+                    <li key={item.title} className="nav-item">
+                      <NavLink to={item.route} className="nav-link">
+                        {item.title}
+                      </NavLink>
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="header-controls__row ">
+                <div className="search__pic">
+                  <Search header />
+                </div>
+                <div className="header-controls-pics cart__pic">
+                  <Link
                     to={"/cart"}
                     className="header-controls-pic header-controls-cart"
                   >
@@ -44,54 +49,23 @@ function Header() {
                       </div>
                     )}
                     <div className="header-controls-cart-menu"></div>
-                  </NavLink>
+                  </Link>
                 </div>
-                {searchHeader && <Search header />}
+                <button
+                  onClick={() => setMenuTogle(!menuTogle)}
+                  className="navbar-toggler "
+                >
+                  <span className="navbar-toggler-icon"></span>
+                </button>
               </div>
-              <button
-                className="navbar-toggler "
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0 flex-fill">
-                  <div className="header-controls__row__mobile ">
-                    <div className="header-controls-pics">
-                      <div
-                        onClick={() => {
-                          dispatch(
-                            searchActions.setSearchHeader(!searchHeader)
-                          );
-                          if (form.name && searchHeader) {
-                            dispatch(searchCatalogFetch(true, navigate));
-                          }
-                        }}
-                        className="header-controls-pic header-controls-search"
-                      ></div>
+            </div>
+            {menuTogle && (
+              <div className="navbar__row__mobile">
+                <div className="search__mobile__menu">
+                  <Search mobile />
+                </div>
 
-                      <NavLink
-                        to={"/cart"}
-                        className="header-controls-pic header-controls-cart"
-                      >
-                        {items.length > 0 && (
-                          <div className="header-controls-cart-full">
-                            {items.length}
-                          </div>
-                        )}
-                        <div className="header-controls-cart-menu"></div>
-                      </NavLink>
-                    </div>
-                    {<Search header />}
-                  </div>
+                <ul className="navbar__mobile__list">
                   {topMenuItems.map((item) => {
                     return (
                       <li key={item.title} className="nav-item">
@@ -103,7 +77,7 @@ function Header() {
                   })}
                 </ul>
               </div>
-            </div>
+            )}
           </nav>
         </div>
       </div>
