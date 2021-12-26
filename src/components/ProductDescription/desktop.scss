@@ -16,3 +16,22 @@
   object-fit: contain;
   object-position: center;
 }
+
+@media (max-width: 576px) {
+  .catalog-item {
+    .text-center {
+      margin-top: 1em;
+      margin-bottom: 0;
+    }
+  }
+}
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+}
+@media (min-width: 1400px) {
+}

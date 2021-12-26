@@ -51,17 +51,17 @@ function ProductDescription({ id }) {
         </div>
       ) : null}
       {loading === "idel" && !error ? (
-        <section className="catalog-item">
+        <section className="container catalog-item">
           <h2 className="text-center">{title}</h2>
-          <div className="row">
-            <div className="col-5 Product_img_row">
+          <div className=" row">
+            <div className="col-12 col-sm-5 Product_img_row">
               <img
                 src={images ? images[0] : ""}
                 className="img-fluid img_Product"
                 alt={title ? title : null}
               />
             </div>
-            <div className="col-7">
+            <div className="col-12 col-sm-7">
               <table className="table table-bordered">
                 <tbody>
                   <tr>

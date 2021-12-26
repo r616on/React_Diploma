@@ -24,7 +24,7 @@ function Header() {
                 {topMenuItems.map((item) => {
                   return (
                     <li key={item.title} className="nav-item">
-                      <NavLink to={item.route} className="nav-link">
+                      <NavLink end to={item.route} className="nav-link">
                         {item.title}
                       </NavLink>
                     </li>
@@ -66,7 +66,7 @@ function Header() {
                   {topMenuItems.map((item) => {
                     return (
                       <li key={item.title} className="nav-item">
-                        <NavLink to={item.route} className="nav-link">
+                        <NavLink end to={item.route} className="nav-link">
                           {item.title}
                         </NavLink>
                       </li>

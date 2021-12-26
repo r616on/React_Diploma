@@ -63,7 +63,7 @@ function Order() {
         </div>
       ) : null}
       <h2 className="text-center">Оформить заказ</h2>
-      <div className="card" style={{ maxWidth: "30rem", margin: " 0 auto" }}>
+      <div className="cart" style={{ maxWidth: "30rem", margin: " 0 auto" }}>
         <form className="card-body" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="phone">Телефон</label>
