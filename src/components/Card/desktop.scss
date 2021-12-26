@@ -13,3 +13,47 @@
     object-fit: contain;
   }
 }
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+.card-text {
+  flex: 1 1 auto;
+}
+.card {
+  height: 526px;
+}
+@media (max-width: 576px) {
+}
+@media (min-width: 576px) {
+  .card__img__row {
+    height: 180px;
+  }
+  .card-body {
+    padding: 0.6rem;
+  }
+  .card-text {
+    flex: 1 1 auto;
+  }
+  .card {
+    height: 340px;
+  }
+}
+@media (min-width: 768px) {
+  .card__img__row {
+    height: 338px;
+  }
+  .card-body {
+    padding: 1.2rem;
+  }
+  .card {
+    height: 526px;
+  }
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+}
+@media (min-width: 1400px) {
+}

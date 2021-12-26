@@ -13,32 +13,48 @@ function Cart() {
   }, 0);
 
   return (
-    <section className="cart">
+    <section className="container cart">
       <h2 className="text-center">Корзина</h2>
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">Название</th>
-            <th scope="col">Размер</th>
-            <th scope="col">Кол-во</th>
-            <th scope="col">Стоимость</th>
-            <th scope="col">Итого</th>
-            <th scope="col">Действия</th>
+            <th className="table-col-item" scope="col">
+              #
+            </th>
+            <th className="table-col-item" scope="col">
+              Название
+            </th>
+            <th className="table-col-item" scope="col">
+              Размер
+            </th>
+            <th className="table-col-item" scope="col">
+              Кол-во
+            </th>
+            <th className="table-col-item" scope="col">
+              Стоимость
+            </th>
+            <th className="table-col-item" scope="col">
+              Итого
+            </th>
+            <th className="table-col-item" scope="col">
+              Действия
+            </th>
           </tr>
         </thead>
         <tbody>
           {items.map((item, index) => {
             return (
               <tr key={item.id} id={item.id}>
-                <td>{+index + 1}</td>
-                <td>
+                <td className="table-col-item">{+index + 1}</td>
+                <td className="table-col-item">
                   <Link to={`/catalog/${item.id}`}>{item.title}</Link>
                 </td>
-                <td>{item.size}</td>
-                <td>{item.count}</td>
-                <td>{item.price} руб.</td>
-                <td>{+item.price * +item.count} руб.</td>
+                <td className="table-col-item">{item.size}</td>
+                <td className="table-col-item">{item.count}</td>
+                <td className="table-col-item">{item.price} руб.</td>
+                <td className="table-col-item">
+                  {+item.price * +item.count} руб.
+                </td>
                 <td>
                   <button
                     onClick={() =>
@@ -59,7 +75,7 @@ function Cart() {
             <td colSpan="5" className="text-right">
               Общая стоимость
             </td>
-            <td>{result} руб.</td>
+            <td className="table-col-item">{result} руб.</td>
           </tr>
         </tbody>
       </table>
