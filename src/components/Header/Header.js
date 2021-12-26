@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate, NavLink, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { NavLink, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./desktop.scss";
 import logo from "../../img/header-logo.png";
 import Search from "../Search/Search";
@@ -8,10 +8,7 @@ import Search from "../Search/Search";
 import topMenuItems from "./data.json";
 
 function Header() {
-  const { searchHeader, form } = useSelector((store) => store.search);
   const items = useSelector((store) => store.cart.items);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [menuTogle, setMenuTogle] = useState(false);
   return (
     <header className="container">

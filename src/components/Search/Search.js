@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 import { searchActions } from "../../store-toolkit/SearchSlice";
 import { searchCatalogFetch } from "../../store-toolkit/SearchThunk";
 
-function Search({ header, mobile }) {
+function Search({ catalog, mobile }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { form } = useSelector((store) => store.search);
@@ -24,18 +24,25 @@ function Search({ header, mobile }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(searchCatalogFetch(navigate));
+    setSearchActiv(false);
+    dispatch(searchCatalogFetch(navigate, catalog));
   };
   return (
     <form
-      className={`${mobile && "active"} search ${searchActiv ? "active" : ""} `}
+      className={`${mobile && "active"} ${catalog && "active"} search ${
+        searchActiv ? "active" : ""
+      } `}
       onSubmit={handleSubmit}
     >
       <div
         onClick={() => {
-          setSearchActiv(() => !searchActiv);
-          if (form.name) {
-            dispatch(searchCatalogFetch(true, navigate));
+          if (searchActiv) {
+            if (form.name) {
+              dispatch(searchCatalogFetch(navigate, catalog));
+            }
+            setSearchActiv(false);
+          } else {
+            setSearchActiv(true);
           }
         }}
         className="search__icon"

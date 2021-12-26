@@ -39,7 +39,7 @@ function Catalog({ index }) {
   return (
     <section className="catalog">
       <h2 className="text-center">Каталог</h2>
-      {!index && <Search />}
+      {!index && <Search catalog />}
       <Categories />
       <div className="catalog__row row">
         {loading === "loading" || error ? (
