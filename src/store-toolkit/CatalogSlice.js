@@ -52,6 +52,9 @@ const CatalogSlice = createSlice({
     setItems(state, action) {
       state.items = [...action.payload];
     },
+    setOffsetItems(state, action) {
+      state.items = state.items.concat([...action.payload]);
+    },
 
     setError(state, action) {
       state.error = action.payload;

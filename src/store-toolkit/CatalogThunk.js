@@ -63,7 +63,7 @@ export const offsetCatalogFetch = () => (dispatch, getState) => {
         dispatch(catalogActions.setOffsetActive(false));
       }
       if (items.length > 0) {
-        dispatch(catalogActions.setItems(items));
+        dispatch(catalogActions.setOffsetItems(items));
         dispatch(catalogActions.nextOffset());
       }
 

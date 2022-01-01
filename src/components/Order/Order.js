@@ -1,57 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { cartActions } from "../../store-toolkit/CartSlice";
+import { orderFetch } from "../../store-toolkit/OrderThunk";
+import { orderActions } from "../../store-toolkit/OrderSlice";
 import Preloader from "../Preloader/Preloader";
-import { url } from "../../config";
 
 import "./desktop.scss";
 
-const initialState = { phone: "", address: "", agreement: false };
-
 function Order() {
+  const { form, loading, error, success } = useSelector((store) => store.order);
   const dispatch = useDispatch();
-  const [form, setForm] = useState(initialState);
-  const [loading, setLoading] = useState("idel");
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
-  const items = useSelector((store) => store.cart.items);
 
   const handleChange = ({ target }) => {
     const name = target.name;
     const value = target.type === "checkbox" ? target.checked : target.value;
-    setForm((prevForm) => {
-      return { ...prevForm, [name]: value };
-    });
+    if (success) {
+      dispatch(orderActions.setSuccess(false));
+    }
+    dispatch(orderActions.changeValue({ fild: name, value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.phone && form.address && form.agreement) {
-      setSuccess(false);
-      setError(false);
-      setLoading("loading");
-      fetch(`${url}/api/order`, {
-        method: "POST",
-        body: JSON.stringify({
-          owner: {
-            phone: form.phone,
-            address: form.address,
-          },
-          items: [...items],
-        }),
-      })
-        .then((resp) => {
-          if (resp.status > 200 && resp.status < 300) {
-            setSuccess(true);
-            setLoading("idel");
-            setForm(initialState);
-            dispatch(cartActions.initCart());
-          }
-        })
-        .catch(() => {
-          setLoading("idel");
-          setError(true);
-        });
+      dispatch(orderFetch());
     }
   };
   return (
@@ -103,16 +74,20 @@ function Order() {
             </label>
           </div>
           <div className="Order_control">
-            <button type="submit" className="btn btn-outline-secondary">
-              Оформить
+            <button
+              type="submit"
+              className="btn btn-outline-secondary"
+              disabled={success ? true : false}
+              style={
+                success ? { color: "white", backgroundColor: "green" } : null
+              }
+            >
+              {success ? "Заказ успешно оформлен..." : "Оформить"}
             </button>
             <div
               className="status_massage"
-              style={
-                success ? { color: "green" } : error ? { color: "red" } : null
-              }
+              style={error ? { color: "red" } : null}
             >
-              {success ? "Успешно" : null}
               {error ? "Ошибка запроса" : null}
             </div>
           </div>

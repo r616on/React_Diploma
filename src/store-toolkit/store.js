@@ -17,6 +17,7 @@ import categoriesSlice from "./CategoriesSlice";
 import search from "./SearchSlice";
 import productDescription from "./ProductDescriptionSlice";
 import cart from "./CartSlice";
+import order from "./OrderSlice";
 
 const rootReducer = combineReducers({
   TopSales,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   search,
   productDescription,
   cart,
+  order,
 });
 
 const persistConfig = {
