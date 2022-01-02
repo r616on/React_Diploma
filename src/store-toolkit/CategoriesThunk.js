@@ -1,10 +1,12 @@
 import { categoriesActions } from "./CategoriesSlice";
+import { updateFromQs } from "./UpdateFromQs";
 
-export const fetchCategoryItems = () => (dispatch, getState) => {
+export const fetchCategoryItems = (location) => (dispatch, getState) => {
   const url = getState().categoriesSlice.url;
   dispatch(categoriesActions.setError(false));
   dispatch(categoriesActions.setLoading("loading"));
   dispatch(categoriesActions.setCategory([]));
+  dispatch(updateFromQs(location));
   fetch(`${url}/api/categories`)
     .then((response) => {
       if (response.status > 300) {

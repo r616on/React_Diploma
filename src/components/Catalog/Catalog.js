@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./desktop.scss";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   filterCategory,
   offsetCatalogFetch,
@@ -13,16 +14,18 @@ import ErrorView from "../ErrorView/ErrorView";
 import Categories from "../Сategories/Сategories";
 
 function Catalog({ index }) {
-  const { items, offset, offsetActive, loading, error } = useSelector(
+  const { items, offsetActive, loading, error } = useSelector(
     (store) => store.CatalogSlice
   );
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { activCategory } = useSelector((store) => store.categoriesSlice);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(filterCategory(activCategory));
+    dispatch(filterCategory());
     return () => {
       dispatch(catalogActions.initCatalog());
     };
@@ -66,7 +69,7 @@ function Catalog({ index }) {
         {!(items.length < 6) && offsetActive ? (
           <button
             onClick={() => {
-              dispatch(offsetCatalogFetch(offset));
+              dispatch(offsetCatalogFetch(navigate, location));
             }}
             className="btn btn-outline-primary"
           >

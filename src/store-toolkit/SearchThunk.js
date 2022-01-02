@@ -1,24 +1,32 @@
 import { catalogActions } from "./CatalogSlice";
 // import { searchActions } from "./SearchSlice";
+import qs from "qs";
 
 export const searchCatalogFetch =
-  (navigate, catalog) => (dispatch, getState) => {
+  (navigate, location, catalog) => (dispatch, getState) => {
     const { url } = getState().CatalogSlice;
     const { activCategory } = getState().categoriesSlice;
-    if (!catalog) {
-      // dispatch(searchActions.setSearchHeader(false));
-      navigate("/catalog");
-    }
 
     const name = getState().search.form.name;
-    const params = new URLSearchParams({ q: name });
+
     dispatch(catalogActions.setError(false));
     dispatch(catalogActions.setLoading("loading"));
-    fetch(
-      activCategory === "all"
-        ? `${url}/api/items?${params}`
-        : `${url}/api/items?categoryId=${activCategory}&${params}`
-    )
+    let params = "";
+    if (name && activCategory !== "all") {
+      params = qs.stringify({ categoryId: activCategory, q: name });
+    } else if (name && activCategory === "all") {
+      params = qs.stringify({ q: name });
+    } else if (!name && activCategory !== "all") {
+      params = qs.stringify({ categoryId: activCategory });
+    }
+    if (!catalog) {
+      navigate(`/catalog?${params}`);
+    } else if (location) {
+      navigate(`${location.pathname}?${params}`, {
+        replace: true,
+      });
+    }
+    fetch(`${url}/api/items?${params}`)
       .then((response) => {
         if (response.status > 300) {
           console.log("error" + response.status);

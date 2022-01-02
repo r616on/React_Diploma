@@ -45,6 +45,9 @@ const CatalogSlice = createSlice({
     nextOffset(state, action) {
       state.offset = +state.offset + 6;
     },
+    setOffset(state, action) {
+      state.offset = action.payload;
+    },
     initOffset(state, action) {
       state.offset = 6;
     },

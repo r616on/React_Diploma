@@ -1,10 +1,10 @@
 import React from "react";
-import IndexTemplate from "../../templates/IndexTemplate/IndexTemplate";
+import PageTemplate from "../../templates/PageTemplate/PageTemplate";
 import "./desktop.scss";
 
 function About() {
   return (
-    <IndexTemplate>
+    <PageTemplate>
       <section className="top-sales">
         <h2 className="text-center">О магазине</h2>
         <p>
@@ -47,7 +47,7 @@ function About() {
           покупкой.
         </p>
       </section>
-    </IndexTemplate>
+    </PageTemplate>
   );
 }
 

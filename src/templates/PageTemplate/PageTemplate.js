@@ -4,7 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./desktop.scss";
 
-function IndexTemplate(props) {
+function PageTemplate(props) {
   return (
     <Fragment>
       <Header />
@@ -21,4 +21,4 @@ function IndexTemplate(props) {
   );
 }
 
-export default IndexTemplate;
+export default PageTemplate;

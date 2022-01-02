@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./desktop.scss";
 import { searchActions } from "../../store-toolkit/SearchSlice";
 import { searchCatalogFetch } from "../../store-toolkit/SearchThunk";
+import classNames from "classnames";
 
 function Search({ catalog, mobile }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { form } = useSelector((store) => store.search);
   const [searchActiv, setSearchActiv] = useState(false);
-
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(searchActions.initForm());
-  //   };
-  // }, [dispatch]);
 
   const handleChange = ({ target }) => {
     const name = target.name;
@@ -25,20 +21,21 @@ function Search({ catalog, mobile }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchActiv(false);
-    dispatch(searchCatalogFetch(navigate, catalog));
+    dispatch(searchCatalogFetch(navigate, location, catalog));
   };
+
   return (
     <form
-      className={`${mobile && "active"} ${catalog && "active"} search ${
-        searchActiv ? "active" : ""
-      } `}
+      className={classNames("search", {
+        active: mobile || catalog || searchActiv,
+      })}
       onSubmit={handleSubmit}
     >
       <div
-        onClick={() => {
+        onClick={(e) => {
           if (searchActiv) {
             if (form.name) {
-              dispatch(searchCatalogFetch(navigate, catalog));
+              dispatch(searchCatalogFetch(navigate, location));
             }
             setSearchActiv(false);
           } else {

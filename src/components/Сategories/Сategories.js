@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import { useLocation, useNavigate } from "react-router-dom";
 import "./desktop.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCategoryItems } from "../../store-toolkit/CategoriesThunk";
@@ -12,14 +12,17 @@ function Сategories() {
   const { category, activCategory, loading, error } = useSelector(
     (store) => store.categoriesSlice
   );
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const filterCatalogHandle = (id) => {
     dispatch(categoriesActions.setActivCategory(id));
-    dispatch(filterCategory());
+    dispatch(filterCategory(navigate, location));
   };
 
   useEffect(() => {
-    dispatch(fetchCategoryItems());
+    dispatch(fetchCategoryItems(location));
+    // eslint-disable-next-line
   }, [dispatch]);
 
   return (

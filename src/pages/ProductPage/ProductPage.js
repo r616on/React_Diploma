@@ -1,5 +1,5 @@
 import React from "react";
-import IndexTemplate from "../../templates/IndexTemplate/IndexTemplate";
+import PageTemplate from "../../templates/PageTemplate/PageTemplate";
 import "./desktop.scss";
 import { useParams } from "react-router-dom";
 import ProductDescription from "../../components/ProductDescription/ProductDescription";
@@ -7,9 +7,9 @@ import ProductDescription from "../../components/ProductDescription/ProductDescr
 function ProductPage() {
   const params = useParams();
   return (
-    <IndexTemplate>
+    <PageTemplate>
       <ProductDescription id={params.id} />
-    </IndexTemplate>
+    </PageTemplate>
   );
 }
 

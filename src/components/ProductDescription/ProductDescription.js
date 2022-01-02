@@ -33,10 +33,10 @@ function ProductDescription({ id }) {
   }, [dispatch]);
 
   function sizeAvalible() {
-    if (sizes) {
-      return sizes.filter((item) => item.avalible).length > 0;
-    } else {
+    if (!sizes) {
       return;
+    } else {
+      return sizes.filter((item) => item.avalible).length > 0;
     }
   }
 

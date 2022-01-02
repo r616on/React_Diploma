@@ -1,20 +1,29 @@
 import { catalogActions } from "./CatalogSlice";
+import qs from "qs";
 
-export const filterCategory = () => (dispatch, getState) => {
+export const filterCategory = (navigate, location) => (dispatch, getState) => {
   const { url } = getState().CatalogSlice;
   const { activCategory } = getState().categoriesSlice;
+
   dispatch(catalogActions.setError(false));
   dispatch(catalogActions.setLoading("loading"));
   const name = getState().search.form.name;
   let params = "";
-  if (name) {
-    params = `&${new URLSearchParams({ q: name })}`;
+  if (name && activCategory !== "all") {
+    params = qs.stringify({ categoryId: activCategory, q: name });
+  } else if (name && activCategory === "all") {
+    params = qs.stringify({ q: name });
+  } else if (!name && activCategory !== "all") {
+    params = qs.stringify({ categoryId: activCategory });
   }
-  fetch(
-    activCategory === "all"
-      ? `${url}/api/items?${params}`
-      : `${url}/api/items?categoryId=${activCategory}${params}`
-  )
+
+  if (location) {
+    navigate(`${location.pathname}?${params}`, {
+      replace: true,
+    });
+  }
+
+  fetch(`${url}/api/items?${params}`)
     .then((response) => {
       if (response.status > 300) {
         console.log("error" + response.status);
@@ -34,47 +43,57 @@ export const filterCategory = () => (dispatch, getState) => {
     });
 };
 
-export const offsetCatalogFetch = () => (dispatch, getState) => {
-  const { url, offset } = getState().CatalogSlice;
-  const { activCategory } = getState().categoriesSlice;
+export const offsetCatalogFetch =
+  (navigate, location) => (dispatch, getState) => {
+    const { url, offset } = getState().CatalogSlice;
+    const { activCategory } = getState().categoriesSlice;
 
-  dispatch(catalogActions.setError(false));
-  dispatch(catalogActions.setLoading("loading"));
+    dispatch(catalogActions.setError(false));
+    dispatch(catalogActions.setLoading("loading"));
 
-  const name = getState().search.form.name;
-  let params = "";
-  if (name) {
-    params = `&${new URLSearchParams({ q: name })}`;
-  }
+    const name = getState().search.form.name;
 
-  fetch(
-    activCategory === "all"
-      ? `${url}/api/items?&offset=${offset}${params}`
-      : `${url}/api/items?categoryId=${activCategory}&offset=${offset}${params}`
-  )
-    .then((response) => {
-      if (response.status > 300) {
-        console.log("error" + response.status);
-      }
-      return response.json();
-    })
-    .then((items) => {
-      if (items.length < 6) {
-        dispatch(catalogActions.setOffsetActive(false));
-      }
-      if (items.length > 0) {
-        dispatch(catalogActions.setOffsetItems(items));
-        dispatch(catalogActions.nextOffset());
-      }
+    let params = "";
+    if (name && activCategory !== "all") {
+      params = qs.stringify({ categoryId: activCategory, q: name, offset });
+    } else if (!name && activCategory !== "all") {
+      params = qs.stringify({ categoryId: activCategory, offset });
+    } else if (name && activCategory === "all") {
+      params = qs.stringify({ q: name, offset });
+    } else if (!name && activCategory === "all") {
+      params = qs.stringify({ offset });
+    }
 
-      dispatch(catalogActions.setLoading("idel"));
-    })
-    .catch(() => {
-      dispatch(catalogActions.setLoading("idel"));
-      dispatch(catalogActions.setError(true));
+    if (location) {
+      navigate(`${location.pathname}?${params}`, {
+        replace: true,
+      });
+    }
 
-      setTimeout(() => {
-        dispatch(offsetCatalogFetch());
-      }, 3000);
-    });
-};
+    fetch(`${url}/api/items?${params}`)
+      .then((response) => {
+        if (response.status > 300) {
+          console.log("error" + response.status);
+        }
+        return response.json();
+      })
+      .then((items) => {
+        if (items.length < 6) {
+          dispatch(catalogActions.setOffsetActive(false));
+        }
+        if (items.length > 0) {
+          dispatch(catalogActions.setOffsetItems(items));
+          dispatch(catalogActions.nextOffset());
+        }
+
+        dispatch(catalogActions.setLoading("idel"));
+      })
+      .catch(() => {
+        dispatch(catalogActions.setLoading("idel"));
+        dispatch(catalogActions.setError(true));
+
+        setTimeout(() => {
+          dispatch(offsetCatalogFetch(navigate, location));
+        }, 3000);
+      });
+  };

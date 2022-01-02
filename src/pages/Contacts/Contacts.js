@@ -1,10 +1,10 @@
 import React from "react";
-import IndexTemplate from "../../templates/IndexTemplate/IndexTemplate";
+import PageTemplate from "../../templates/PageTemplate/PageTemplate";
 import "./desktop.scss";
 
 function Contacts() {
   return (
-    <IndexTemplate>
+    <PageTemplate>
       <section className="top-sales">
         <h2 className="text-center">Контакты</h2>
         <p>
@@ -20,7 +20,7 @@ function Contacts() {
           Email: <a href="mailto:office@bosanoga.ru">office@bosanoga.ru</a>
         </p>
       </section>
-    </IndexTemplate>
+    </PageTemplate>
   );
 }
 

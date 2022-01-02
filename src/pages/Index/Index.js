@@ -1,14 +1,14 @@
 import React from "react";
 import Catalog from "../../components/Catalog/Catalog";
 import TopSales from "../../components/TopSales/TopSales";
-import IndexTemplate from "../../templates/IndexTemplate/IndexTemplate";
+import PageTemplate from "../../templates/PageTemplate/PageTemplate";
 
 function Index() {
   return (
-    <IndexTemplate>
+    <PageTemplate>
       <TopSales />
       <Catalog index />
-    </IndexTemplate>
+    </PageTemplate>
   );
 }
 
