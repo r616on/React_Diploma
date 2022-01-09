@@ -1,12 +1,35 @@
 import { catalogActions } from "./CatalogSlice";
 import qs from "qs";
 
+const requestStatuses = {
+  init: {
+    loading: false,
+    ok: false,
+    error: false,
+  },
+  loading: {
+    loading: true,
+    ok: false,
+    error: false,
+  },
+  ok: {
+    loading: false,
+    ok: true,
+    error: false,
+  },
+  setError: {
+    loading: false,
+    ok: false,
+    error: true,
+  },
+};
+
 export const filterCategory = (navigate, location) => (dispatch, getState) => {
   const { url } = getState().CatalogSlice;
   const { activCategory } = getState().categoriesSlice;
 
-  dispatch(catalogActions.setError(false));
-  dispatch(catalogActions.setLoading("loading"));
+  dispatch(catalogActions.setRequestStatus(requestStatuses.loading));
+
   const name = getState().search.form.name;
   let params = "";
   if (name && activCategory !== "all") {
@@ -32,11 +55,10 @@ export const filterCategory = (navigate, location) => (dispatch, getState) => {
     })
     .then((items) => {
       dispatch(catalogActions.setItems(items));
-      dispatch(catalogActions.setLoading("idel"));
+      dispatch(catalogActions.setRequestStatus(requestStatuses.ok));
     })
     .catch(() => {
-      dispatch(catalogActions.setLoading("idel"));
-      dispatch(catalogActions.setError(true));
+      dispatch(catalogActions.setRequestStatus(requestStatuses.setError));
       setTimeout(() => {
         dispatch(filterCategory());
       }, 3000);
@@ -48,9 +70,7 @@ export const offsetCatalogFetch =
     const { url, offset } = getState().CatalogSlice;
     const { activCategory } = getState().categoriesSlice;
 
-    dispatch(catalogActions.setError(false));
-    dispatch(catalogActions.setLoading("loading"));
-
+    dispatch(catalogActions.setRequestStatus(requestStatuses.loading));
     const name = getState().search.form.name;
 
     let params = "";
@@ -85,13 +105,10 @@ export const offsetCatalogFetch =
           dispatch(catalogActions.setOffsetItems(items));
           dispatch(catalogActions.nextOffset());
         }
-
-        dispatch(catalogActions.setLoading("idel"));
+        dispatch(catalogActions.setRequestStatus(requestStatuses.ok));
       })
       .catch(() => {
-        dispatch(catalogActions.setLoading("idel"));
-        dispatch(catalogActions.setError(true));
-
+        dispatch(catalogActions.setRequestStatus(requestStatuses.setError));
         setTimeout(() => {
           dispatch(offsetCatalogFetch(navigate, location));
         }, 3000);

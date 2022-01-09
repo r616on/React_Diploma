@@ -14,8 +14,9 @@ import ErrorView from "../ErrorView/ErrorView";
 import Categories from "../Сategories/Сategories";
 
 function Catalog({ index }) {
-  const { items, offsetActive, loading, error } = useSelector(
-    (store) => store.CatalogSlice
+  const { items, offsetActive } = useSelector((store) => store.CatalogSlice);
+  const { loading, error } = useSelector(
+    (store) => store.CatalogSlice.requestStatus
   );
   const location = useLocation();
   const navigate = useNavigate();
@@ -45,9 +46,9 @@ function Catalog({ index }) {
       {!index && <Search catalog />}
       <Categories />
       <div className="catalog__row row">
-        {loading === "loading" || error ? (
+        {loading || error ? (
           <div className="catalog_Preloader">
-            {loading === "loading" ? <Preloader big /> : null}
+            {loading && <Preloader big />}
             {error ? <ErrorView>ОЙ....Ошибка загрузки данных</ErrorView> : null}
           </div>
         ) : null}

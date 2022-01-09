@@ -1,10 +1,34 @@
 import { categoriesActions } from "./CategoriesSlice";
 import { updateFromQs } from "./UpdateFromQs";
 
+const requestStatuses = {
+  init: {
+    loading: false,
+    ok: false,
+    error: false,
+  },
+  loading: {
+    loading: true,
+    ok: false,
+    error: false,
+  },
+  ok: {
+    loading: false,
+    ok: true,
+    error: false,
+  },
+  setError: {
+    loading: false,
+    ok: false,
+    error: true,
+  },
+};
+
 export const fetchCategoryItems = (location) => (dispatch, getState) => {
   const url = getState().categoriesSlice.url;
-  dispatch(categoriesActions.setError(false));
-  dispatch(categoriesActions.setLoading("loading"));
+
+  dispatch(categoriesActions.setRequestStatus(requestStatuses.loading));
+
   dispatch(categoriesActions.setCategory([]));
   dispatch(updateFromQs(location));
   fetch(`${url}/api/categories`)
@@ -16,11 +40,10 @@ export const fetchCategoryItems = (location) => (dispatch, getState) => {
     })
     .then((items) => {
       dispatch(categoriesActions.setCategory(items));
-      dispatch(categoriesActions.setLoading("idel"));
+      dispatch(categoriesActions.setRequestStatus(requestStatuses.ok));
     })
     .catch(() => {
-      dispatch(categoriesActions.setLoading("idel"));
-      dispatch(categoriesActions.setError(true));
+      dispatch(categoriesActions.setRequestStatus(requestStatuses.setError));
       setTimeout(() => {
         dispatch(fetchCategoryItems());
       }, 3000);

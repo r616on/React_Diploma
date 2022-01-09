@@ -26,9 +26,12 @@ const initialState = {
   ],
   offset: 6,
   offsetActive: true,
-  loading: "loading",
-  error: false,
   url: url,
+  requestStatus: {
+    loading: false,
+    ok: false,
+    error: false,
+  },
 };
 //action={type:"",payload:""}
 
@@ -59,11 +62,8 @@ const CatalogSlice = createSlice({
       state.items = state.items.concat([...action.payload]);
     },
 
-    setError(state, action) {
-      state.error = action.payload;
-    },
-    setLoading(state, action) {
-      state.loading = action.payload;
+    setRequestStatus(state, action) {
+      state.requestStatus = action.payload;
     },
   },
 });

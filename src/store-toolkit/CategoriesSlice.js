@@ -7,9 +7,12 @@ const initialState = {
     // { id: 13, title: "Женская обувь" },
   ],
   activCategory: "all",
-  loading: "loading",
-  error: false,
   url: url,
+  requestStatus: {
+    loading: false,
+    ok: false,
+    error: false,
+  },
 };
 //action={type:"",payload:""}
 
@@ -24,11 +27,9 @@ const categoriesSlice = createSlice({
     setCategory(state, action) {
       state.category = [...action.payload];
     },
-    setError(state, action) {
-      state.error = action.payload;
-    },
-    setLoading(state, action) {
-      state.loading = action.payload;
+
+    setRequestStatus(state, action) {
+      state.requestStatus = action.payload;
     },
   },
 });

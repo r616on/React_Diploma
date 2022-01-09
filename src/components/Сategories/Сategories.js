@@ -9,9 +9,13 @@ import Preloader from "../Preloader/Preloader";
 import ErrorView from "../ErrorView/ErrorView";
 
 function Сategories() {
-  const { category, activCategory, loading, error } = useSelector(
+  const { category, activCategory } = useSelector(
     (store) => store.categoriesSlice
   );
+  const { loading, error } = useSelector(
+    (store) => store.categoriesSlice.requestStatus
+  );
+
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,9 +31,7 @@ function Сategories() {
 
   return (
     <ul className="catalog-categories nav justify-content-center">
-      {loading === "loading" ? (
-        <div className="categories_Preloader">{<Preloader />}</div>
-      ) : null}
+      {loading && <div className="categories_Preloader">{<Preloader />}</div>}
       {error ? <ErrorView>ОЙ....Ошибка загрузки категорий</ErrorView> : null}
       {!error && (
         <li className="nav-item">
