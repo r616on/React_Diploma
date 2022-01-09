@@ -1,28 +1,6 @@
 import { categoriesActions } from "./CategoriesSlice";
 import { updateFromQs } from "./UpdateFromQs";
-
-const requestStatuses = {
-  init: {
-    loading: false,
-    ok: false,
-    error: false,
-  },
-  loading: {
-    loading: true,
-    ok: false,
-    error: false,
-  },
-  ok: {
-    loading: false,
-    ok: true,
-    error: false,
-  },
-  setError: {
-    loading: false,
-    ok: false,
-    error: true,
-  },
-};
+import requestStatuses from "./requestStatuses";
 
 export const fetchCategoryItems = (location) => (dispatch, getState) => {
   const url = getState().categoriesSlice.url;

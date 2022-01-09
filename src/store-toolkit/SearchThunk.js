@@ -1,5 +1,6 @@
 import { catalogActions } from "./CatalogSlice";
 // import { searchActions } from "./SearchSlice";
+import requestStatuses from "./requestStatuses";
 import qs from "qs";
 
 export const searchCatalogFetch =
@@ -8,9 +9,8 @@ export const searchCatalogFetch =
     const { activCategory } = getState().categoriesSlice;
 
     const name = getState().search.form.name;
+    dispatch(catalogActions.setRequestStatus(requestStatuses.loading));
 
-    dispatch(catalogActions.setError(false));
-    dispatch(catalogActions.setLoading("loading"));
     let params = "";
     if (name && activCategory !== "all") {
       params = qs.stringify({ categoryId: activCategory, q: name });
@@ -36,12 +36,10 @@ export const searchCatalogFetch =
       .then((items) => {
         // dispatch(searchActions.initForm());
         dispatch(catalogActions.setItems(items));
-
-        dispatch(catalogActions.setLoading("idel"));
+        dispatch(catalogActions.setRequestStatus(requestStatuses.ok));
       })
       .catch(() => {
-        dispatch(catalogActions.setLoading("idel"));
-        dispatch(catalogActions.setError(true));
+        dispatch(catalogActions.setRequestStatus(requestStatuses.setError));
         setTimeout(() => {
           dispatch(searchCatalogFetch(navigate, catalog));
         }, 3000);

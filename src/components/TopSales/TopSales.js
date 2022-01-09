@@ -7,7 +7,10 @@ import Preloader from "../Preloader/Preloader";
 import ErrorView from "../ErrorView/ErrorView";
 
 function TopSales() {
-  const { items, loading, error } = useSelector((store) => store.TopSales);
+  const { items } = useSelector((store) => store.TopSales);
+  const { loading, error, ok } = useSelector(
+    (store) => store.TopSales.requestStatus
+  );
   const dispatch = useDispatch();
   const [itemsPerline, steItemsPerline] = useState(2);
   useEffect(() => {
@@ -26,9 +29,9 @@ function TopSales() {
   return (
     <section className="top-sales">
       <h2 className="text-center">Хиты продаж!</h2>
-      {loading === "loading" ? <Preloader /> : null}
+      {loading && <Preloader />}
       {error ? <ErrorView>Ошибка загрузки данных</ErrorView> : null}
-      {loading === "idel" && items.length > 0 ? (
+      {ok && items.length > 0 ? (
         <div className="row gy-5">
           {items
             .filter((item, index) => index < itemsPerline)

@@ -3,9 +3,12 @@ import { url } from "../config";
 
 const initialState = {
   items: [],
-  loading: "loading",
-  error: false,
   url: url,
+  requestStatus: {
+    loading: false,
+    ok: false,
+    error: false,
+  },
 };
 //action={type:"",payload:""}
 
@@ -16,11 +19,9 @@ const TopSales = createSlice({
     setItems(state, action) {
       state.items = [...action.payload];
     },
-    setError(state, action) {
-      state.error = action.payload;
-    },
-    setLoading(state, action) {
-      state.loading = action.payload;
+
+    setRequestStatus(state, action) {
+      state.requestStatus = action.payload;
     },
   },
 });

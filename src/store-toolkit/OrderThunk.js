@@ -1,28 +1,6 @@
 import { orderActions } from "./OrderSlice";
 import { cartActions } from "./CartSlice";
-
-const requestStatuses = {
-  init: {
-    loading: false,
-    ok: false,
-    error: false,
-  },
-  loading: {
-    loading: true,
-    ok: false,
-    error: false,
-  },
-  ok: {
-    loading: false,
-    ok: true,
-    error: false,
-  },
-  setError: {
-    loading: false,
-    ok: false,
-    error: true,
-  },
-};
+import requestStatuses from "./requestStatuses";
 
 export const orderFetch = () => (dispatch, getState) => {
   const { form, url } = getState().order;
