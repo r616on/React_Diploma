@@ -3,11 +3,14 @@ import { url } from "../config";
 
 const initialState = {
   item: {},
-  loading: "loading",
-  error: false,
   url: url,
   activSize: "",
   count: 1,
+  requestStatus: {
+    loading: false,
+    ok: false,
+    error: false,
+  },
 };
 //action={type:"",payload:""}
 
@@ -24,12 +27,7 @@ const productDescription = createSlice({
     setActivSize(state, action) {
       state.activSize = action.payload;
     },
-    setError(state, action) {
-      state.error = action.payload;
-    },
-    setLoading(state, action) {
-      state.loading = action.payload;
-    },
+
     addCount(state, action) {
       if (+state.count < 10) {
         state.count = +state.count + 1;
@@ -39,6 +37,9 @@ const productDescription = createSlice({
       if (+state.count > 1) {
         state.count = +state.count - 1;
       }
+    },
+    setRequestStatus(state, action) {
+      state.requestStatus = action.payload;
     },
   },
 });

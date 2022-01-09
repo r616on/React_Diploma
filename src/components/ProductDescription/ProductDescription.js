@@ -23,8 +23,9 @@ function ProductDescription({ id }) {
     price,
     sizes,
   } = useSelector((store) => store.productDescription.item);
-  const { loading, error, activSize, count } = useSelector(
-    (store) => store.productDescription
+  const { activSize, count } = useSelector((store) => store.productDescription);
+  const { loading, error, ok } = useSelector(
+    (store) => store.productDescription.requestStatus
   );
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function ProductDescription({ id }) {
 
   function sizeAvalible() {
     if (!sizes) {
-      return;
+      return false;
     } else {
       return sizes.filter((item) => item.avalible).length > 0;
     }
@@ -42,15 +43,15 @@ function ProductDescription({ id }) {
 
   return (
     <Fragment>
-      {loading === "loading" || error ? (
+      {loading || error ? (
         <div className="Product_Preloader">
-          {loading === "loading" ? <Preloader big /> : null}
+          {loading ? <Preloader big /> : null}
           {error ? (
             <ErrorView>ОЙ....Ошибка загрузки информации о товаре</ErrorView>
           ) : null}
         </div>
       ) : null}
-      {loading === "idel" && !error ? (
+      {ok && !error ? (
         <section className="container catalog-item">
           <h2 className="text-center">{title}</h2>
           <div className=" row">
@@ -94,6 +95,18 @@ function ProductDescription({ id }) {
                   </tr>
                 </tbody>
               </table>
+
+              {!sizeAvalible() && (
+                <div
+                  style={{
+                    color: "red",
+                    textAlign: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  Товара нет в наличии
+                </div>
+              )}
               {sizeAvalible() && (
                 <div className="text-center">
                   <p>
@@ -148,8 +161,9 @@ function ProductDescription({ id }) {
                   </p>
                 </div>
               )}
-              {activSize && sizeAvalible() ? (
+              {
                 <button
+                  disabled={activSize && sizeAvalible() ? false : true}
                   onClick={() => {
                     dispatch(
                       cartActions.addItem({
@@ -167,9 +181,18 @@ function ProductDescription({ id }) {
                 >
                   В корзину
                 </button>
-              ) : (
-                <span>Заказ невозможен без размера. Выберите размер</span>
-              )}
+              }
+              {!activSize ? (
+                <span
+                  style={{
+                    textAlign: "center",
+                    display: "block",
+                    marginTop: "15px",
+                  }}
+                >
+                  Заказ невозможен без размера. Выберите размер
+                </span>
+              ) : null}
             </div>
           </div>
         </section>

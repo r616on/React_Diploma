@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { orderFetch } from "../../store-toolkit/OrderThunk";
 import { orderActions } from "../../store-toolkit/OrderSlice";
@@ -7,7 +7,9 @@ import Preloader from "../Preloader/Preloader";
 import "./desktop.scss";
 
 function Order() {
-  const { form, loading, error, success } = useSelector((store) => store.order);
+  const { form, success } = useSelector((store) => store.order);
+  const { loading, error } = useSelector((store) => store.order.requestStatus);
+
   const dispatch = useDispatch();
 
   const handleChange = ({ target }) => {
@@ -25,11 +27,15 @@ function Order() {
       dispatch(orderFetch());
     }
   };
+  useEffect(() => {
+    dispatch(orderActions.setSuccess(false));
+    // eslint-disable-next-line
+  }, []);
   return (
     <section className="order">
-      {loading === "loading" ? (
+      {loading ? (
         <div className="order_Preloader">
-          {loading === "loading" ? <Preloader /> : null}
+          {loading ? <Preloader /> : null}
           {/* {error ? <ErrorView>ОЙ....Ошибка загрузки данных</ErrorView> : null} */}
         </div>
       ) : null}

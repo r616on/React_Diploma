@@ -3,10 +3,13 @@ import { url } from "../config";
 
 const initialState = {
   form: { phone: "", address: "", agreement: false },
-  loading: "idel",
-  error: false,
   success: false,
   url: url,
+  requestStatus: {
+    loading: false,
+    ok: false,
+    error: false,
+  },
 };
 
 //action={type:"",payload:""}
@@ -22,14 +25,11 @@ const order = createSlice({
     initForm(state, action) {
       state.form = { phone: "", address: "", agreement: false };
     },
-    setError(state, action) {
-      state.error = action.payload;
-    },
-    setLoading(state, action) {
-      state.loading = action.payload;
-    },
     setSuccess(state, action) {
       state.success = action.payload;
+    },
+    setRequestStatus(state, action) {
+      state.requestStatus = action.payload;
     },
   },
 });
